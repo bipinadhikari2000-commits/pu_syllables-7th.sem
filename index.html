@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purbanchal University - Geomatic Engineering 7th Sem Dashboard</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .active-tab {
+            border-bottom: 3px solid #1e40af;
+            color: #1e40af;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 font-sans min-h-screen flex flex-col justify-between">
+
+    <!-- Header Section -->
+    <header class="bg-white border-b border-slate-200 shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center space-x-4">
+                <!-- Purbanchal University Logo -->
+                <img src="https://pu.edu.np/wp-content/uploads/2019/12/logo.png" alt="PU Logo" class="h-16 w-auto object-contain" onerror="this.src='https://via.placeholder.com/80?text=PU+Logo'">
+                <div>
+                    <h1 class="text-xl md:text-2xl font-extrabold text-blue-900 tracking-wide">
+                        PURBANCHAL UNIVERSITY
+                    </h1>
+                    <p class="text-sm font-semibold text-slate-600">
+                        Geomatic Engineering — 7th Semester Syllabus & Exam Portal
+                    </p>
+                </div>
+            </div>
+            <div>
+                <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1.5 rounded-full border border-amber-300 shadow-sm">
+                    <i class="fa-solid fa-graduation-cap mr-1"></i> Bachelor in Geomatic Engg.
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 py-8 w-full flex-grow">
+        
+        <div class="mb-6">
+            <h2 class="text-lg font-bold text-slate-800">Select Subject Portal</h2>
+            <p class="text-sm text-slate-500">विषय अनुसारको Syllabus, Model/Important Questions र Exam Scheme हेर्न तलका Card हरूमा Click गर्नुहोस्।</p>
+        </div>
+
+        <!-- Subject Selection Cards (Different Colors for Each Subject) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+            
+            <!-- Subject 1: Environmental & Socio-Economic Survey -->
+            <button onclick="loadSubject('env')" id="btn-env" class="subject-card p-4 rounded-xl shadow-sm text-left transition transform hover:-translate-y-1 hover:shadow-md border border-emerald-300 bg-emerald-500 text-white">
+                <div class="flex items-center justify-between mb-2">
+                    <i class="fa-solid fa-leaf text-2xl"></i>
+                    <span class="text-xs font-semibold bg-emerald-700 text-emerald-100 px-2 py-0.5 rounded">3 Cr</span>
+                </div>
+                <h3 class="font-bold text-sm leading-tight">Environmental & Socio-Economic Survey</h3>
+            </button>
+
+            <!-- Subject 2: Estimating and Costing -->
+            <button onclick="loadSubject('est')" id="btn-est" class="subject-card p-4 rounded-xl shadow-sm text-left transition transform hover:-translate-y-1 hover:shadow-md border border-blue-300 bg-white text-slate-700 hover:bg-blue-50">
+                <div class="flex items-center justify-between mb-2">
+                    <i class="fa-solid fa-calculator text-2xl text-blue-600"></i>
+                    <span class="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-0.5 rounded">3 Cr</span>
+                </div>
+                <h3 class="font-bold text-sm leading-tight">Estimating & Costing</h3>
+            </button>
+
+            <!-- Subject 3: Land and Valuation -->
+            <button onclick="loadSubject('val')" id="btn-val" class="subject-card p-4 rounded-xl shadow-sm text-left transition transform hover:-translate-y-1 hover:shadow-md border border-amber-300 bg-white text-slate-700 hover:bg-amber-50">
+                <div class="flex items-center justify-between mb-2">
+                    <i class="fa-solid fa-building-columns text-2xl text-amber-600"></i>
+                    <span class="text-xs font-semibold bg-amber-100 text-amber-800 px-2 py-0.5 rounded">3 Cr</span>
+                </div>
+                <h3 class="font-bold text-sm leading-tight">Land & Valuation</h3>
+            </button>
+
+            <!-- Subject 4: Professional Practice and Ethics -->
+            <button onclick="loadSubject('eth')" id="btn-eth" class="subject-card p-4 rounded-xl shadow-sm text-left transition transform hover:-translate-y-1 hover:shadow-md border border-purple-300 bg-white text-slate-700 hover:bg-purple-50">
+                <div class="flex items-center justify-between mb-2">
+                    <i class="fa-solid fa-scale-balanced text-2xl text-purple-600"></i>
+                    <span class="text-xs font-semibold bg-purple-100 text-purple-800 px-2 py-0.5 rounded">3 Cr</span>
+                </div>
+                <h3 class="font-bold text-sm leading-tight">Professional Practice & Ethics</h3>
+            </button>
+
+            <!-- Subject 5: Project Management -->
+            <button onclick="loadSubject('pm')" id="btn-pm" class="subject-card p-4 rounded-xl shadow-sm text-left transition transform hover:-translate-y-1 hover:shadow-md border border-rose-300 bg-white text-slate-700 hover:bg-rose-50">
+                <div class="flex items-center justify-between mb-2">
+                    <i class="fa-solid fa-list-check text-2xl text-rose-600"></i>
+                    <span class="text-xs font-semibold bg-rose-100 text-rose-800 px-2 py-0.5 rounded">3 Cr</span>
+                </div>
+                <h3 class="font-bold text-sm leading-tight">Project Management</h3>
+            </button>
+
+        </div>
+
+        <!-- Active Subject Title Header -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-6">
+            <div class="flex flex-wrap justify-between items-center border-b border-slate-200 pb-4 mb-4">
+                <div>
+                    <span id="subject-badge" class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-full uppercase">
+                        Active Subject
+                    </span>
+                    <h2 id="subject-title" class="text-2xl font-bold text-slate-800 mt-2">
+                        Environmental and Socio-Economic Survey
+                    </h2>
+                </div>
+                <div class="text-sm text-slate-500 mt-2 sm:mt-0">
+                    Teaching Hours: <span class="font-bold text-slate-700">3 L | 1 T</span> | Total Marks: <span class="font-bold text-slate-700">100</span>
+                </div>
+            </div>
+
+            <!-- Content Navigation Tabs -->
+            <div class="flex border-b border-slate-200 space-x-6 text-sm font-semibold text-slate-600">
+                <button onclick="switchTab('syllabus')" id="tab-syllabus" class="pb-3 active-tab flex items-center gap-2">
+                    <i class="fa-solid fa-book-open"></i> Full Syllabus
+                </button>
+                <button onclick="switchTab('questions')" id="tab-questions" class="pb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-file-pen"></i> Model & Important Questions
+                </button>
+                <button onclick="switchTab('marks')" id="tab-marks" class="pb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-chart-pie"></i> Examination Scheme
+                </button>
+            </div>
+        </div>
+
+        <!-- Tab Content View Area -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+            
+            <!-- Syllabus Tab -->
+            <div id="content-syllabus" class="tab-panel">
+                <!-- Injected dynamically via JS -->
+            </div>
+
+            <!-- Questions Tab -->
+            <div id="content-questions" class="tab-panel hidden">
+                <!-- Injected dynamically via JS -->
+            </div>
+
+            <!-- Examination Scheme Tab -->
+            <div id="content-marks" class="tab-panel hidden">
+                <!-- Injected dynamically via JS -->
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-slate-900 text-slate-400 py-6 mt-12 border-t border-slate-800 text-center text-sm">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-3">
+            <div class="flex items-center space-x-1">
+                <span>&copy;</span>
+                <span id="year">2026</span>
+                <span class="font-semibold text-slate-200">Purbanchal University Geomatic Engineering.</span>
+                <span>All Rights Reserved.</span>
+            </div>
+            <div class="text-indigo-400 font-medium flex items-center gap-1">
+                <i class="fa-solid fa-code text-indigo-400"></i> Developed by: <span class="text-white font-bold tracking-wide underline decoration-indigo-500">Bipin Adhikari</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Data and Logic -->
+    <script>
+        // Full PU Syllabus Data Store
+        const courseData = {
+            env: {
+                title: "Environmental and Socio-Economic Survey",
+                badge: "bg-emerald-100 text-emerald-800",
+                syllabus: `
+                    <div class="space-y-4 text-slate-700">
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">1. Introduction to Socio-economic Survey (8 hrs)</h4><p class="text-sm mt-1">History, Geography, Climate, Soil, Topography, Population, Culture, Infrastructures, Agriculture, Industries, Natural Resources, Tourism, Poverty, Gender equity, Distribution of natural Resources, Employment.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">2. Sample of Data (7 hrs)</h4><p class="text-sm mt-1">Distribution, Sample size, Method of collection, Sample analysis, Legislation.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">3. Data Collection and Analysis (5 hrs)</h4><p class="text-sm mt-1">Data compilation, Data Analysis, Cost Benefit Analysis, Presentation on spatial data, Use of Socio-economic survey and GIS.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">4. Introduction to Environmental Study (5 hrs)</h4><p class="text-sm mt-1">Definition, Scope, Importance, Need for Public Awareness.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">5. Natural Resources (5 hrs)</h4><p class="text-sm mt-1">Renewable Resources, Non-Renewable Resources.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">6. Biodiversity & Environmental Legislation (10 hrs)</h4><p class="text-sm mt-1">Biodiversity and Conservation (Value, Global/National/Local levels), National Environmental Policy, EPA, EPR, IEE, EIA, SIA.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">7. Environmental Pollution (5 hrs)</h4><p class="text-sm mt-1">Air, Water, Soil Pollution, Climate Change, Solid & Liquid Waste Management, Noise Pollution.</p></div>
+                    </div>`,
+                questions: `
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-bold text-emerald-700 mb-2">Very Short Questions (2 Marks Each)</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
+                                <li>How do you define economy?</li>
+                                <li>Define Sample Design and Endemic species.</li>
+                                <li>Define Buffer Zone in conservation areas.</li>
+                                <li><strong>Imp:</strong> Distinguish between IEE and EIA.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-emerald-700 mb-2">Short Questions (4 Marks Each)</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
+                                <li>A socio-economic survey is regarded as one of the most important sources of statistical data. Justify.</li>
+                                <li>What is Public Infrastructure? Explain with examples.</li>
+                                <li>Explain the importance of choosing appropriate sampling techniques.</li>
+                                <li>Define land pollution, its sources and control measures.</li>
+                                <li>Define Noise. Describe sources of noise pollution and reduction techniques.</li>
+                                <li><strong>Imp:</strong> Discuss the application of GIS in socio-economic data representation.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-emerald-700 mb-2">Long Questions (10 Marks Each)</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
+                                <li>Define sampling method. Describe Sampling Methods/Types and Techniques with Examples.</li>
+                                <li>Describe briefly methods of biodiversity conservation in Nepal and list the national parks and wildlife reserves.</li>
+                            </ul>
+                        </div>
+                    </div>`,
+                marks: `<p class="text-sm text-slate-600 mb-4">Total Internal: 40 | Final Theory: 60 Marks (3 Hours Duration)</p>
+                    <table class="w-full text-sm text-left border border-slate-200">
+                        <thead class="bg-slate-100 text-slate-800 font-bold border-b">
+                            <tr><th class="p-2 border">Chapter</th><th class="p-2 border">Very Short (2M)</th><th class="p-2 border">Short (4M)</th><th class="p-2 border">Long (10M)</th><th class="p-2 border">Total Marks</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="p-2 border">Ch 1</td><td class="p-2 border">1 Qn</td><td class="p-2 border">2 Qns</td><td class="p-2 border">-</td><td class="p-2 border">10 Marks</td></tr>
+                            <tr><td class="p-2 border">Ch 2</td><td class="p-2 border">-</td><td class="p-2 border">-</td><td class="p-2 border">1 Qn</td><td class="p-2 border">10 Marks</td></tr>
+                            <tr><td class="p-2 border">Ch 3</td><td class="p-2 border">-</td><td class="p-2 border">2 Qns</td><td class="p-2 border">-</td><td class="p-2 border">8 Marks</td></tr>
+                            <tr><td class="p-2 border">Ch 4, 5, 7</td><td class="p-2 border">1 Qn each</td><td class="p-2 border">1 Qn each</td><td class="p-2 border">-</td><td class="p-2 border">6 Marks each</td></tr>
+                            <tr><td class="p-2 border">Ch 6</td><td class="p-2 border">-</td><td class="p-2 border">1 Qn</td><td class="p-2 border">1 Qn</td><td class="p-2 border">14 Marks</td></tr>
+                        </tbody>
+                    </table>`
+            },
+            est: {
+                title: "Estimating and Costing",
+                badge: "bg-blue-100 text-blue-800",
+                syllabus: `
+                    <div class="space-y-4 text-slate-700">
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">1. Introduction (4 hrs)</h4><p class="text-sm mt-1">General, System of Units, Units of measurement and payments, Requirement of estimating.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">2. Method of Estimating (4 hrs)</h4><p class="text-sm mt-1">Methods of measurements, Subheads of items, Taking out quantities, Abstracting bills of quantities.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">3. Preparation of Detailed Estimate (4 hrs)</h4><p class="text-sm mt-1">Cost of items, Transportation, Overheads, Contingency.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">4. Types of Estimates (5 hrs)</h4><p class="text-sm mt-1">Approximate, Detailed, Revised, Supplementary, Annual maintenance, Complete estimates.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">5. Analysis of Rates (5 hrs)</h4><p class="text-sm mt-1">Purposes, Importance, Factors affecting rate analysis, Procedure for building/sanitary/road/irrigation works, District rates.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">6. Detailed Estimate (10 hrs)</h4><p class="text-sm mt-1">Estimate of walls, single/two-room building, earthwork by 3 methods, RCC pillar, slab culvert, T-Beam decking, septic tank & soak pit.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">7. Detail Valuation of Land (3 hrs)</h4><p class="text-sm mt-1">Assignment of Kisim, Area, Soil quality, Road access, Water/Electricity/High tension, Market access, Class comparison.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">8. Estimation for Projects & Disaster Resilience (10 hrs)</h4><p class="text-sm mt-1">Double storey building, Roadway portion, Rural land, Tourist resort plot, Valuation report, Disaster resilience cost.</p></div>
+                    </div>`,
+                questions: `
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-bold text-blue-700 mb-2">Very Short Questions (2 Marks Each)</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
+                                <li>Define estimate and Bill of Quantities (BOQ).</li>
+                                <li>What is contingency? Explain overheads.</li>
+                                <li>Explain detailed estimate.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-blue-700 mb-2">Short Questions (4 Marks Each)</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
+                                <li>What are the essentials of a good estimate?</li>
+                                <li>Distinguish between Bill of Quantities and Abstract of Estimate.</li>
+                                <li>Distinguish between revised estimate and supplementary estimate.</li>
+                                <li>What are the main purposes of rate analysis?</li>
+                                <li>Carry out the estimate for a septic tank and soak pit.</li>
+                                <li><strong>Imp:</strong> Explain earthwork calculation by Mid-section, Mean-area, and Trapezoidal methods.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-blue-700 mb-2">Long Questions (10 Marks Each)</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
+                                <li>Estimate the quantities of excavation and masonry work for a single room building with a given drawing.</li>
+                                <li>Describe the content and procedure for preparing district rates of materials and labor.</li>
+                            </ul>
+                        </div>
+                    </div>`,
+                marks: `<p class="text-sm text-slate-600 mb-4">Total Internal: 40 | Final Theory: 60 Marks (3 Hours Duration)</p>
+                    <table class="w-full text-sm text-left border border-slate-200">
+                        <thead class="bg-slate-100 text-slate-800 font-bold border-b">
+                            <tr><th class="p-2 border">Chapter</th><th class="p-2 border">Very Short (2M)</th><th class="p-2 border">Short (4M)</th><th class="p-2 border">Long (10M)</th><th class="p-2 border">Total Marks</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="p-2 border">Ch 1, 3, 4, 5</td><td class="p-2 border">1 Qn each</td><td class="p-2 border">1 Qn each</td><td class="p-2 border">-</td><td class="p-2 border">6 Marks each</td></tr>
+                            <tr><td class="p-2 border">Ch 2, 7</td><td class="p-2 border">-</td><td class="p-2 border">1 Qn each</td><td class="p-2 border">-</td><td class="p-2 border">4 Marks each</td></tr>
+                            <tr><td class="p-2 border">Ch 6, 8</td><td class="p-2 border">-</td><td class="p-2 border">1 Qn each</td><td class="p-2 border">1 Qn each</td><td class="p-2 border">14 Marks each</td></tr>
+                        </tbody>
+                    </table>`
+            },
+            val: {
+                title: "Land and Valuation",
+                badge: "bg-amber-100 text-amber-800",
+                syllabus: `
+                    <div class="space-y-4 text-slate-700">
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">1. Introduction (4 hrs)</h4><p class="text-sm mt-1">Real estate valuation, market value, taxation, registration, compulsory purchase, bank loan valuation.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">2. Detail Estimates of Land (5 hrs)</h4><p class="text-sm mt-1">Assignment of Kisim, Area, Soil quality, Road access, Water, Scenic view, Standing crops, High tension line, Infrastructure, Neighborhood.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">3. Compensation & Eminent Domain (4 hrs)</h4><p class="text-sm mt-1">Eminent domain, damage claims, public use acquisition.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">4. Investment & Management (10 hrs)</h4><p class="text-sm mt-1">Investment market value, development finance, feasibility planning, management of public/private property systems.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">5. Land Valuation Systems (6 hrs)</h4><p class="text-sm mt-1">Valuation practices in Nepal, India, and England.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">6. Legal, Institutional & Tech Basis (10 hrs)</h4><p class="text-sm mt-1">Legality of valuation, Valuation committees, Bankers perspective, GIS in land valuation, MCDA, AHP method for weight determination.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">7. Valuation Procedures & Purposes (6 hrs)</h4><p class="text-sm mt-1">Comparative price, return value, real value procedures, depreciation methods, minimum land valuation for registration, property taxation.</p></div>
+                    </div>`,
+                questions: `
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-bold text-amber-700 mb-2">Very Short Questions (2 Marks Each)</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
+                                <li>Define land valuation and qualitative valuation.</li>
+                                <li>What do you understand by 'Eminent Domain'?</li>
+                                <li>Define investment planning in the real estate market.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-amber-700 mb-2">Short Questions (4 Marks Each)</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
+                                <li>What are the factors affecting land valuation in urban areas?</li>
+                                <li>Discuss the procedure of property valuation for land acquisition compensation.</li>
+                                <li>Explain straight-line method and sinking fund method of calculation of depreciation.</li>
+                                <li>Explain the calculation of minimum land valuation for registration in Nepal.</li>
+                                <li><strong>Imp:</strong> Explain Analytical Hierarchy Process (AHP) for weight determination in valuation.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-amber-700 mb-2">Long Questions (10 Marks Each)</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
+                                <li>Explain the detailed application of GIS and Multi-Criteria Decision Analysis (MCDA) in Land Valuation.</li>
+                                <li>Compare the Land Valuation systems of Nepal with England/India.</li>
+                            </ul>
+                        </div>
+                    </div>`,
+                marks: `<p class="text-sm text-slate-600 mb-4">Total Internal: 40 | Final Theory: 60 Marks (3 Hours Duration)</p>
+                    <table class="w-full text-sm text-left border border-slate-200">
+                        <thead class="bg-slate-100 text-slate-800 font-bold border-b">
+                            <tr><th class="p-2 border">Chapter</th><th class="p-2 border">Very Short (2M)</th><th class="p-2 border">Short (4M)</th><th class="p-2 border">Long (10M)</th><th class="p-2 border">Total Marks</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="p-2 border">Ch 1, 2, 3, 4</td><td class="p-2 border">1 Qn each</td><td class="p-2 border">1 Qn each</td><td class="p-2 border">-</td><td class="p-2 border">6 Marks each</td></tr>
+                            <tr><td class="p-2 border">Ch 5</td><td class="p-2 border">-</td><td class="p-2 border">-</td><td class="p-2 border">1 Qn</td><td class="p-2 border">10 Marks</td></tr>
+                            <tr><td class="p-2 border">Ch 6</td><td class="p-2 border">-</td><td class="p-2 border">1 Qn</td><td class="p-2 border">1 Qn</td><td class="p-2 border">14 Marks</td></tr>
+                            <tr><td class="p-2 border">Ch 7, 8, 9</td><td class="p-2 border">-</td><td class="p-2 border">1 Qn each</td><td class="p-2 border">-</td><td class="p-2 border">4 Marks each</td></tr>
+                        </tbody>
+                    </table>`
+            },
+            eth: {
+                title: "Professional Practice and Ethics",
+                badge: "bg-purple-100 text-purple-800",
+                syllabus: `
+                    <div class="space-y-4 text-slate-700">
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">1. Ethics & Professionalism (6 hrs)</h4><p class="text-sm mt-1">Professional ethics, Ethical principles, Code of conduct for surveying, Preparing firm & staff.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">2. Morals, Ethics & Surveying (9 hrs)</h4><p class="text-sm mt-1">Code of ethics guidelines, Promotion of ethics, Relation to basic science, technology, and other professions, Patriotism.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">3. Roles of Professional Associations (6 hrs)</h4><p class="text-sm mt-1">Licensing, Regulating practice, Guidance for entrants, Advice to engineering colleges, Safety and welfare in survey works.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">4. Legal Aspects in Nepal (9 hrs)</h4><p class="text-sm mt-1">Nepalese legal system, Public Procurement Act 2063 / Rules 2064, Tendering, Contract documents, Liability & negligence, Foreign firms.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">5. Practice in Other Countries (4 hrs)</h4><p class="text-sm mt-1">Surveying practice in Asian countries, USSR/Eastern Europe, Western Europe, North America.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">6. Planning Survey Projects (10 hrs)</h4><p class="text-sm mt-1">Planning aerial photography, Field control, Photogrammetry, Cartography, GIS reproduction, Distribution & reporting.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">7. Ethical Issues Case Studies (6 hrs)</h4><p class="text-sm mt-1">Intellectual property rights (IPR), Privacy & databases, Environment vs Industrialization, Military surveying, International development.</p></div>
+                    </div>`,
+                questions: `
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-bold text-purple-700 mb-2">Very Short Questions (2 Marks Each)</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
+                                <li>Define liability and negligence in professional practice.</li>
+                                <li>Write short notes on FIG (International Federation of Surveyors) Commission 1.</li>
+                                <li>Review personal privacy issues in large computerized databases.</li>
+                                <li>Describe legal provisions on map publication in Nepal.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-purple-700 mb-2">Short Questions (4 Marks Each)</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
+                                <li>Describe the fundamental ethical principles in surveying.</li>
+                                <li>Explain the roles of professional associations (e.g., Nepal Engineering Council, Survey Association).</li>
+                                <li>Discuss the Public Procurement Act 2063 provisions regarding tendering.</li>
+                                <li>Explain the risk and benefit considerations in public transportation projects.</li>
+                                <li>Explain the status and working procedures of foreign survey firms working in Nepal.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-purple-700 mb-2">Long Questions (10 Marks Each)</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
+                                <li>Define morals and ethics. Describe codes of ethics and guidelines for professional survey practice.</li>
+                                <li>Describe the step-by-step working procedure for Planning Aerial Photography projects.</li>
+                                <li><strong>Or:</strong> Describe briefly the contents and key guidelines of Public Procurement Act 2063.</li>
+                            </ul>
+                        </div>
+                    </div>`,
+                marks: `<p class="text-sm text-slate-600 mb-4">Total Internal: 40 | Final Theory: 60 Marks (3 Hours Duration)</p>
+                    <table class="w-full text-sm text-left border border-slate-200">
+                        <thead class="bg-slate-100 text-slate-800 font-bold border-b">
+                            <tr><th class="p-2 border">Chapter</th><th class="p-2 border">Very Short (2M)</th><th class="p-2 border">Short (4M)</th><th class="p-2 border">Long (10M)</th><th class="p-2 border">Total Marks</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="p-2 border">Ch 1, 3</td><td class="p-2 border">-</td><td class="p-2 border">2 Qns each</td><td class="p-2 border">-</td><td class="p-2 border">8 Marks each</td></tr>
+                            <tr><td class="p-2 border">Ch 2</td><td class="p-2 border">-</td><td class="p-2 border">-</td><td class="p-2 border">1 Qn</td><td class="p-2 border">10 Marks</td></tr>
+                            <tr><td class="p-2 border">Ch 4</td><td class="p-2 border">1 Qn</td><td class="p-2 border">2 Qns</td><td class="p-2 border">-</td><td class="p-2 border">10 Marks</td></tr>
+                            <tr><td class="p-2 border">Ch 5, 7</td><td class="p-2 border">1 Qn each</td><td class="p-2 border">1 Qn each</td><td class="p-2 border">-</td><td class="p-2 border">6 Marks each</td></tr>
+                            <tr><td class="p-2 border">Ch 6</td><td class="p-2 border">1 Qn</td><td class="p-2 border">-</td><td class="p-2 border">1 Qn</td><td class="p-2 border">12 Marks</td></tr>
+                        </tbody>
+                    </table>`
+            },
+            pm: {
+                title: "Project Management",
+                badge: "bg-rose-100 text-rose-800",
+                syllabus: `
+                    <div class="space-y-4 text-slate-700">
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">1. Introduction (5 hrs)</h4><p class="text-sm mt-1">Survey Project Definition, Cycles, Phases, Objectives, Manager skills & competencies.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">2. Pre-Project Work (5 hrs)</h4><p class="text-sm mt-1">Feasibility Study, Project Appraisal, Project Proposal preparation.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">3. Planning & Scheduling (10 hrs)</h4><p class="text-sm mt-1">Bar chart, Milestone, Network Models (CPM/PERT), Goal-Oriented Planning (ZOPP), Resource levelling, Wiest's Algorithm, HRM.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">4. Implementation & M&E (5 hrs)</h4><p class="text-sm mt-1">Time/Conflict/Stress Management, Risk Analysis, Monitoring & Evaluation (M&E) indicators, Feedback control, WBS, PMIS.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">5. Capital Planning & Budgeting (3 hrs)</h4><p class="text-sm mt-1">Operating/Capital budget, Fixed vs Flexible budget, Budget control & Auditing.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">6. Impact Analysis (3 hrs)</h4><p class="text-sm mt-1">Social, Environmental, Economic Impact Analysis, SWOT Analysis.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">7. Procurement of Services & Equipment (10 hrs)</h4><p class="text-sm mt-1">Procurement types & methods, Tendering, Bid & Performance security, Contract management, Public Procurement Act 2063.</p></div>
+                        <div class="border-b pb-2"><h4 class="font-bold text-slate-800">8. Geoethics & Contemporary Issues (3 hrs)</h4><p class="text-sm mt-1">Geoethics, Occupational Health & Safety (OHS), Nepal Engineering Council (NEC Act), Agile project management.</p></div>
+                    </div>`,
+                questions: `
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-bold text-rose-700 mb-2">Very Short Questions (2 Marks Each)</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
+                                <li>List out essential skills of a survey project manager.</li>
+                                <li>What are the key contents of a survey project proposal?</li>
+                                <li>List stages of Human Resource Management (HRM).</li>
+                                <li>What do you understand by project monitoring?</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-rose-700 mb-2">Short Questions (4 Marks Each)</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
+                                <li>Explain various project management competencies.</li>
+                                <li>Describe the procedure for carrying out a feasibility study.</li>
+                                <li>Explain SWOT Analysis with a neat diagram.</li>
+                                <li>What is Public Procurement? Explain different procurement methods in Nepal.</li>
+                                <li>Explain Occupational Health and Safety (OHS) in field survey works.</li>
+                                <li><strong>Imp:</strong> Distinguish between CPM and PERT network techniques.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-rose-700 mb-2">Long Questions (10 Marks Each)</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
+                                <li>Draw a Network Diagram/Critical Path Method (CPM) for a survey project to determine total project duration and float times.</li>
+                                <li>Explain various procurement methods applicable for surveying/geoinformation projects according to PPA 2063.</li>
+                            </ul>
+                        </div>
+                    </div>`,
+                marks: `<p class="text-sm text-slate-600 mb-4">Total Internal: 40 | Final Theory: 60 Marks (3 Hours Duration)</p>
+                    <table class="w-full text-sm text-left border border-slate-200">
+                        <thead class="bg-slate-100 text-slate-800 font-bold border-b">
+                            <tr><th class="p-2 border">Chapter</th><th class="p-2 border">Very Short (2M)</th><th class="p-2 border">Short (4M)</th><th class="p-2 border">Long (10M)</th><th class="p-2 border">Total Marks</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="p-2 border">Ch 1, 2, 4</td><td class="p-2 border">1 Qn each</td><td class="p-2 border">1 Qn each</td><td class="p-2 border">-</td><td class="p-2 border">6 Marks each</td></tr>
+                            <tr><td class="p-2 border">Ch 3</td><td class="p-2 border">1 Qn</td><td class="p-2 border">1 Qn</td><td class="p-2 border">1 Qn</td><td class="p-2 border">16 Marks</td></tr>
+                            <tr><td class="p-2 border">Ch 5, 6, 8</td><td class="p-2 border">-</td><td class="p-2 border">1 Qn each</td><td class="p-2 border">-</td><td class="p-2 border">4 Marks each</td></tr>
+                            <tr><td class="p-2 border">Ch 7</td><td class="p-2 border">-</td><td class="p-2 border">1 Qn</td><td class="p-2 border">1 Qn</td><td class="p-2 border">14 Marks</td></tr>
+                        </tbody>
+                    </table>`
+            }
+        };
+
+        let activeSubject = 'env';
+        let activeTab = 'syllabus';
+
+        // Load Subject Data Function
+        function loadSubject(key) {
+            activeSubject = key;
+            const data = courseData[key];
+
+            // Update UI Header
+            document.getElementById('subject-title').innerText = data.title;
+            const badge = document.getElementById('subject-badge');
+            badge.className = `text-xs font-bold px-2.5 py-1 rounded-full uppercase ${data.badge}`;
+
+            // Reset All Button Colors
+            document.querySelectorAll('.subject-card').forEach(btn => {
+                btn.classList.remove('bg-emerald-500', 'bg-blue-600', 'bg-amber-600', 'bg-purple-600', 'bg-rose-600', 'text-white');
+                btn.classList.add('bg-white', 'text-slate-700');
+            });
+
+            // Highlight Selected Button
+            const selectedBtn = document.getElementById(`btn-${key}`);
+            selectedBtn.classList.remove('bg-white', 'text-slate-700');
+            if(key === 'env') selectedBtn.classList.add('bg-emerald-500', 'text-white');
+            if(key === 'est') selectedBtn.classList.add('bg-blue-600', 'text-white');
+            if(key === 'val') selectedBtn.classList.add('bg-amber-600', 'text-white');
+            if(key === 'eth') selectedBtn.classList.add('bg-purple-600', 'text-white');
+            if(key === 'pm') selectedBtn.classList.add('bg-rose-600', 'text-white');
+
+            // Render Content
+            document.getElementById('content-syllabus').innerHTML = data.syllabus;
+            document.getElementById('content-questions').innerHTML = data.questions;
+            document.getElementById('content-marks').innerHTML = data.marks;
+        }
+
+        // Switch Tabs Function
+        function switchTab(tabName) {
+            activeTab = tabName;
+            
+            // Tab Buttons Styling
+            document.querySelectorAll('[id^="tab-"]').forEach(btn => btn.classList.remove('active-tab'));
+            document.getElementById(`tab-${tabName}`).classList.add('active-tab');
+
+            // Tab Panels Visibility
+            document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.add('hidden'));
+            document.getElementById(`content-${tabName}`).classList.remove('hidden');
+        }
+
+        // Initial Load
+        window.onload = function() {
+            loadSubject('env');
+        };
+    </script>
+</body>
+</html>
