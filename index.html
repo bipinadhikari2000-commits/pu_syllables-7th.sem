@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geomatics Engineering Academic Dashboard</title>
+    <title>Purbanchal University - Geomatics Engineering Academic Dashboard</title>
     <style>
         :root {
             --primary: #1e3a8a;
@@ -27,25 +27,50 @@
             color: var(--text-dark);
             line-height: 1.5;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .main-wrapper {
+            flex: 1;
         }
 
         .header {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 20px;
+            padding: 22px 25px;
             border-radius: 12px;
             margin-bottom: 20px;
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .header-top-right {
+            position: absolute;
+            top: 18px;
+            right: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
         }
 
         .header h1 {
             font-size: 1.8rem;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
+            padding-right: 170px; /* Space for top right badge */
         }
 
         .header p {
-            font-size: 0.95rem;
-            opacity: 0.9;
+            font-size: 1rem;
+            opacity: 0.92;
+            font-weight: 500;
         }
 
         /* Fun Fact Styling */
@@ -253,72 +278,101 @@
             font-size: 0.92rem;
         }
 
+        .footer {
+            text-align: center;
+            padding: 15px 0 5px 0;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #64748b;
+            border-top: 1px solid var(--border);
+            font-weight: 500;
+        }
+
         .hidden {
             display: none;
+        }
+
+        @media (max-width: 600px) {
+            .header-top-right {
+                position: static;
+                display: inline-block;
+                margin-bottom: 8px;
+            }
+            .header h1 {
+                padding-right: 0;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>Geomatics Engineering Academic Portal</h1>
-        <p>Complete Syllabus, Chapter-wise Marks Distribution & Model Questions (Semesters VII & VIII)</p>
-        
-        <div class="fun-fact-card">
-            <strong>💡 Did You Know?</strong> Geomatics Engineering combines spatial data analysis, satellite geodesy, and GIS for sustainable development and urban planning.
-        </div>
-    </div>
-
-    <!-- Direct Semester Toggle Buttons -->
-    <div class="sem-selector-bar">
-        <button id="btnSem7" class="sem-btn active" onclick="switchSemester('sem7')">📘 Semester VII</button>
-        <button id="btnSem8" class="sem-btn" onclick="switchSemester('sem8')">📙 Semester VIII</button>
-    </div>
-
-    <!-- Subject Selection Dropdown -->
-    <div class="controls-card">
-        <div class="control-group">
-            <label for="subjectSelect">Choose Subject:</label>
-            <select id="subjectSelect" onchange="renderSubjectData()">
-                <!-- Populated dynamically via JS -->
-            </select>
-        </div>
-    </div>
-
-    <!-- Sub Navigation Tabs -->
-    <div class="tab-container">
-        <button class="tab-btn active" onclick="switchTab('syllabusTab', this)">📖 Full Syllabus & Content</button>
-        <button class="tab-btn" onclick="switchTab('marksTab', this)">📊 Chapter-wise Marks Distribution</button>
-        <button class="tab-btn" onclick="switchTab('questionsTab', this)">❓ Important / Model Questions</button>
-    </div>
-
-    <!-- Content Area -->
-    <div class="content-area">
-        <div class="subject-header">
-            <h2 id="displaySubjectTitle">Subject Title</h2>
-            <div class="subject-meta" id="displaySubjectMeta">
-                <!-- Meta information -->
+    <div class="main-wrapper">
+        <div class="header">
+            <div class="header-top-right">Geomatics Engineering</div>
+            <h1>Purbanchal University</h1>
+            <p>7th and 8th Sem Syllabus, Marks Distribution & Model Questions</p>
+            
+            <div class="fun-fact-card">
+                <strong>💡 Did You Know?</strong> Geomatics Engineering combines spatial data analysis, satellite geodesy, and GIS for sustainable development and urban planning.
             </div>
         </div>
 
-        <!-- Tab 1: Syllabus -->
-        <div id="syllabusTab" class="tab-content">
-            <div id="syllabusContainer"></div>
+        <!-- Direct Semester Toggle Buttons -->
+        <div class="sem-selector-bar">
+            <button id="btnSem7" class="sem-btn active" onclick="switchSemester('sem7')">📘 Semester VII</button>
+            <button id="btnSem8" class="sem-btn" onclick="switchSemester('sem8')">📙 Semester VIII</button>
         </div>
 
-        <!-- Tab 2: Marks Scheme -->
-        <div id="marksTab" class="tab-content hidden">
-            <h3>Examination Scheme & Chapter Marks Distribution</h3>
-            <br>
-            <div id="marksContainer"></div>
+        <!-- Subject Selection Dropdown -->
+        <div class="controls-card">
+            <div class="control-group">
+                <label for="subjectSelect">Choose Subject:</label>
+                <select id="subjectSelect" onchange="renderSubjectData()">
+                    <!-- Populated dynamically via JS -->
+                </select>
+            </div>
         </div>
 
-        <!-- Tab 3: Questions -->
-        <div id="questionsTab" class="tab-content hidden">
-            <h3>Model Questions & Practice Sets</h3>
-            <br>
-            <div id="questionsContainer"></div>
+        <!-- Sub Navigation Tabs -->
+        <div class="tab-container">
+            <button class="tab-btn active" onclick="switchTab('syllabusTab', this)">📖 Full Syllabus & Content</button>
+            <button class="tab-btn" onclick="switchTab('marksTab', this)">📊 Chapter-wise Marks Distribution</button>
+            <button class="tab-btn" onclick="switchTab('questionsTab', this)">❓ Important / Model Questions</button>
         </div>
+
+        <!-- Content Area -->
+        <div class="content-area">
+            <div class="subject-header">
+                <h2 id="displaySubjectTitle">Subject Title</h2>
+                <div class="subject-meta" id="displaySubjectMeta">
+                    <!-- Meta information -->
+                </div>
+            </div>
+
+            <!-- Tab 1: Syllabus -->
+            <div id="syllabusTab" class="tab-content">
+                <div id="syllabusContainer"></div>
+            </div>
+
+            <!-- Tab 2: Marks Scheme -->
+            <div id="marksTab" class="tab-content hidden">
+                <h3>Examination Scheme & Chapter Marks Distribution</h3>
+                <br>
+                <div id="marksContainer"></div>
+            </div>
+
+            <!-- Tab 3: Questions -->
+            <div id="questionsTab" class="tab-content hidden">
+                <h3>Model Questions & Practice Sets</h3>
+                <br>
+                <div id="questionsContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Credit -->
+    <div class="footer">
+        Developed by Bipin Adhikari
     </div>
 
     <script>
@@ -632,11 +686,9 @@
             ]
         };
 
-        // Switch active semester with direct button click
         function switchSemester(semKey) {
             currentSemester = semKey;
 
-            // Toggle button active UI
             if (semKey === 'sem7') {
                 document.getElementById('btnSem7').classList.add('active');
                 document.getElementById('btnSem8').classList.remove('active');
@@ -645,7 +697,6 @@
                 document.getElementById('btnSem7').classList.remove('active');
             }
 
-            // Populate subject dropdown
             populateSubjects();
         }
 
@@ -672,11 +723,9 @@
             const subject = getCurrentSubject();
             if (!subject) return;
 
-            // Render Header Meta
             document.getElementById('displaySubjectTitle').innerText = subject.name;
             document.getElementById('displaySubjectMeta').innerText = subject.meta;
 
-            // Render Syllabus
             const sylContainer = document.getElementById('syllabusContainer');
             sylContainer.innerHTML = '';
             subject.chapters.forEach(ch => {
@@ -693,7 +742,6 @@
                 `;
             });
 
-            // Render Marks Scheme
             const marksContainer = document.getElementById('marksContainer');
             let tableHTML = `
                 <table>
@@ -722,7 +770,6 @@
             tableHTML += `</tbody></table>`;
             marksContainer.innerHTML = tableHTML;
 
-            // Render Questions
             const qContainer = document.getElementById('questionsContainer');
             qContainer.innerHTML = `
                 <div class="q-section">
@@ -754,7 +801,6 @@
             btnElement.classList.add('active');
         }
 
-        // Initialize Page
         window.onload = () => {
             switchSemester('sem7');
         };
