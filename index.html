@@ -20,7 +20,8 @@
             --border: #e2e8f0;
             --success: #10b981;
             --danger: #ef4444;
-            --radius: 10px;
+            --warning: #f59e0b;
+            --radius: 12px;
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
         }
 
@@ -29,6 +30,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
@@ -37,47 +39,47 @@
             line-height: 1.6;
         }
 
-        /* Top Medium Header */
+        /* Top Header */
         header {
             background: linear-gradient(135deg, var(--primary), #1e293b);
             color: #ffffff;
-            padding: 2.5rem 1.5rem;
+            padding: 2rem 1rem;
             text-align: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         header h1 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.5px;
+            margin-bottom: 0.4rem;
         }
 
         header p {
             color: #94a3b8;
-            font-size: 0.95rem;
+            font-size: 0.88rem;
             font-style: italic;
         }
 
-        /* Container & Navigation */
+        /* Main Container */
         .container {
             max-width: 1200px;
-            margin: 2rem auto;
+            margin: 1.5rem auto;
             padding: 0 1rem;
         }
 
+        /* Semester Tabs */
         .semester-tabs {
             display: flex;
             justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
         }
 
         .tab-btn {
             background: var(--bg-card);
             border: 2px solid var(--border);
-            padding: 0.8rem 2rem;
-            font-size: 1rem;
+            padding: 0.6rem 1.5rem;
+            font-size: 0.95rem;
             font-weight: 600;
             border-radius: var(--radius);
             cursor: pointer;
@@ -88,11 +90,6 @@
             gap: 0.5rem;
         }
 
-        .tab-btn:hover {
-            border-color: var(--secondary);
-            color: var(--secondary);
-        }
-
         .tab-btn.active {
             background-color: var(--secondary);
             color: #ffffff;
@@ -100,33 +97,28 @@
             box-shadow: var(--shadow);
         }
 
-        /* Main Layout */
+        /* Grid Layout */
         .content-layout {
             display: grid;
             grid-template-columns: 260px 1fr;
-            gap: 2rem;
+            gap: 1.5rem;
+            align-items: start;
         }
 
-        @media (max-width: 900px) {
-            .content-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Sidebar Nav */
+        /* Sidebar Desktop View */
         .sidebar {
             background: var(--bg-card);
-            padding: 1.5rem;
+            padding: 1.25rem;
             border-radius: var(--radius);
             border: 1px solid var(--border);
             position: sticky;
             top: 1rem;
-            height: fit-content;
             box-shadow: var(--shadow);
+            z-index: 10;
         }
 
         .sidebar h3 {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: var(--text-muted);
@@ -138,17 +130,17 @@
         }
 
         .sidebar li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
         }
 
         .sidebar a {
             text-decoration: none;
             color: var(--text-main);
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 500;
             display: block;
             padding: 0.5rem 0.75rem;
-            border-radius: 6px;
+            border-radius: 8px;
             transition: background 0.2s;
         }
 
@@ -157,116 +149,171 @@
             color: var(--secondary);
         }
 
+        /* Mobile Responsive Navigation (Floating Dropdown Modal) */
+        .mobile-nav-toggle {
+            display: none;
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-align: left;
+            border: none;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @media (max-width: 850px) {
+            .content-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .mobile-nav-toggle {
+                display: flex;
+            }
+
+            .sidebar {
+                display: none; /* Mobile ma click गर्दा मात्र खुल्छ */
+                position: relative;
+                top: 0;
+                margin-bottom: 1.5rem;
+            }
+
+            .sidebar.show {
+                display: block;
+            }
+        }
+
         /* Subject Cards */
         .subject-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 2rem;
-            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
             box-shadow: var(--shadow);
-            scroll-margin-top: 2rem;
+            scroll-margin-top: 1rem;
         }
 
         .subject-title {
-            font-size: 1.4rem;
+            font-size: 1.25rem;
             color: var(--primary);
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
             border-bottom: 2px solid #f1f5f9;
-            padding-bottom: 0.75rem;
+            padding-bottom: 0.6rem;
         }
 
         .fun-fact-box {
             background: #f0f9ff;
             border-left: 4px solid var(--secondary);
-            padding: 1rem 1.2rem;
+            padding: 0.8rem 1rem;
             border-radius: 0 var(--radius) var(--radius) 0;
-            margin-bottom: 1.5rem;
-            font-size: 0.92rem;
+            margin-bottom: 1.2rem;
+            font-size: 0.88rem;
             color: #0369a1;
         }
 
-        .fun-fact-box i {
-            margin-right: 0.5rem;
-        }
-
-        /* Syllabus Accordion */
+        /* Section Headers */
         .section-header {
             font-weight: 600;
-            font-size: 1.1rem;
-            margin: 1.5rem 0 0.8rem 0;
+            font-size: 1rem;
+            margin: 1.25rem 0 0.6rem 0;
             color: var(--primary);
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
+        /* Accordion Syllabus */
         .syllabus-group {
             border: 1px solid var(--border);
             border-radius: 8px;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.6rem;
             overflow: hidden;
         }
 
         .syllabus-title {
             background: #f8fafc;
-            padding: 0.8rem 1rem;
+            padding: 0.75rem 1rem;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: background 0.2s;
-        }
-
-        .syllabus-title:hover {
-            background: #f1f5f9;
         }
 
         .syllabus-content {
-            padding: 1rem;
+            padding: 0.8rem 1rem;
             display: none;
             background: #ffffff;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             border-top: 1px solid var(--border);
         }
 
         .syllabus-content ul {
-            list-style-type: none;
-            padding-left: 0.5rem;
+            list-style: none;
         }
 
         .syllabus-content li {
-            margin-bottom: 0.4rem;
-            color: var(--text-main);
+            margin-bottom: 0.3rem;
         }
 
-        /* MCQ Quiz Styling */
+        /* Important Questions Section */
+        .imp-questions-box {
+            background: #fffbe3;
+            border: 1px solid #fde047;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .imp-questions-box h4 {
+            color: #854d0e;
+            font-size: 0.92rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .imp-questions-box ul {
+            padding-left: 1.2rem;
+            font-size: 0.88rem;
+            color: #713f12;
+        }
+
+        .imp-questions-box li {
+            margin-bottom: 0.3rem;
+        }
+
+        /* Quiz Box */
         .quiz-container {
-            margin-top: 1.5rem;
+            margin-top: 1rem;
             background: #fafafa;
             border: 1px dashed var(--border);
-            padding: 1.5rem;
-            border-radius: var(--radius);
+            padding: 1rem;
+            border-radius: 8px;
         }
 
         .question-box {
-            margin-bottom: 1.2rem;
+            margin-bottom: 1rem;
             background: #ffffff;
-            padding: 1rem;
-            border-radius: 8px;
+            padding: 0.8rem;
+            border-radius: 6px;
             border: 1px solid var(--border);
         }
 
         .question-text {
             font-weight: 600;
-            font-size: 0.95rem;
-            margin-bottom: 0.75rem;
-            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 0.6rem;
         }
 
         .options-grid {
@@ -284,17 +331,11 @@
         .option-btn {
             background: #ffffff;
             border: 1px solid var(--border);
-            padding: 0.6rem 0.8rem;
+            padding: 0.5rem 0.75rem;
             border-radius: 6px;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             cursor: pointer;
             text-align: left;
-            transition: all 0.2s;
-        }
-
-        .option-btn:hover {
-            border-color: var(--secondary);
-            background: #f0f9ff;
         }
 
         .option-btn.correct {
@@ -313,12 +354,11 @@
         /* Footer */
         footer {
             text-align: center;
-            padding: 2rem;
+            padding: 1.5rem;
             background: var(--primary);
             color: #94a3b8;
-            font-size: 0.9rem;
-            margin-top: 4rem;
-            border-top: 1px solid var(--border);
+            font-size: 0.88rem;
+            margin-top: 3rem;
         }
 
         footer strong {
@@ -328,9 +368,9 @@
 </head>
 <body>
 
-    <!-- Top Medium Header -->
+    <!-- Header -->
     <header>
-        <h1>🎓 Geomatics Engineering Study Portal</h1>
+        <h1>🎓 Geomatics Engineering Portal</h1>
         <p>“Surveyors don't make mistakes; they just create new benchmarks!” 📐📍</p>
     </header>
 
@@ -346,14 +386,20 @@
             </button>
         </div>
 
-        <!-- Layout -->
+        <!-- Mobile Navigation Toggle Button -->
+        <button class="mobile-nav-toggle" onclick="toggleMobileNav()">
+            <span><i class="fa-solid fa-bars"></i> Quick Navigation</span>
+            <i class="fa-solid fa-chevron-down" id="nav-chevron"></i>
+        </button>
+
+        <!-- Content Layout -->
         <div class="content-layout">
             
-            <!-- Sidebar Navigation -->
-            <aside class="sidebar">
+            <!-- Sidebar -->
+            <aside class="sidebar" id="sidebar">
                 <h3>Quick Navigation</h3>
                 <ul id="sidebar-menu">
-                    <!-- Populated dynamically by JS -->
+                    <!-- Populated dynamically -->
                 </ul>
             </aside>
 
@@ -365,9 +411,9 @@
                     
                     <!-- Subject 1 -->
                     <div id="sem7-sub1" class="subject-card">
-                        <h2 class="subject-title"><i class="fa-solid fa-leaf" style="color: #10b981;"></i> 1. Environmental and Socio-Economic Survey</h2>
+                        <h2 class="subject-title"><i class="fa-solid fa-leaf" style="color: #10b981;"></i> 1. Environmental & Socio-Economic Survey</h2>
                         <div class="fun-fact-box">
-                            <i class="fa-solid fa-lightbulb"></i> <strong>Fun Fact & Survey Joke:</strong> Did you know? Social surveys show that 4 out of 3 people struggle with fractions in sample sizes! Always double-check your total N before presenting to the client. 😉
+                            <i class="fa-solid fa-lightbulb"></i> <strong>Fun Fact & Survey Joke:</strong> Social surveys show that 4 out of 3 people struggle with sample sizes! Always double-check your N value! 😉
                         </div>
 
                         <div class="section-header"><i class="fa-solid fa-list-check"></i> Syllabus Content</div>
@@ -388,79 +434,58 @@
                             <div class="syllabus-title" onclick="toggleSyllabus(this)">2. Sample of Data (7 hrs) <i class="fa-solid fa-chevron-down"></i></div>
                             <div class="syllabus-content">
                                 <ul>
-                                    <li>• 2.1 Distribution | 2.2 Sample size | 2.3 Method of collection</li>
-                                    <li>• 2.4 Sample analysis | 2.5 Legislation</li>
+                                    <li>• 2.1 Distribution | 2.2 Sample size | 2.3 Method of collection | 2.4 Sample analysis | 2.5 Legislation</li>
                                 </ul>
                             </div>
                         </div>
 
                         <div class="syllabus-group">
-                            <div class="syllabus-title" onclick="toggleSyllabus(this)">3. Data Collection and Analysis (5 hrs) <i class="fa-solid fa-chevron-down"></i></div>
+                            <div class="syllabus-title" onclick="toggleSyllabus(this)">3. Data Collection & Analysis (5 hrs) <i class="fa-solid fa-chevron-down"></i></div>
                             <div class="syllabus-content">
                                 <ul>
-                                    <li>• 3.1 Data compilation | 3.2 Data Analysis | 3.3 Cost Benefit Analysis</li>
-                                    <li>• 3.4 Presentation on spatial data | 3.5 Use of Socio-economic survey and GIS</li>
+                                    <li>• 3.1 Data compilation | 3.2 Analysis | 3.3 Cost Benefit Analysis | 3.4 Spatial data | 3.5 Use in GIS</li>
                                 </ul>
                             </div>
                         </div>
 
                         <div class="syllabus-group">
-                            <div class="syllabus-title" onclick="toggleSyllabus(this)">4. Introduction to Environmental Study (5 hrs) <i class="fa-solid fa-chevron-down"></i></div>
+                            <div class="syllabus-title" onclick="toggleSyllabus(this)">4. Environmental Study & Natural Resources (10 hrs) <i class="fa-solid fa-chevron-down"></i></div>
                             <div class="syllabus-content">
                                 <ul>
-                                    <li>• 4.1 Definition | 4.2 Scope | 4.3 Importance | 4.4 Need for Public Awareness</li>
+                                    <li>• Scope & Public Awareness | Renewable & Non Renewable Resources</li>
                                 </ul>
                             </div>
                         </div>
 
                         <div class="syllabus-group">
-                            <div class="syllabus-title" onclick="toggleSyllabus(this)">5. Natural Resources (5 hrs) <i class="fa-solid fa-chevron-down"></i></div>
+                            <div class="syllabus-title" onclick="toggleSyllabus(this)">5. Biodiversity & Legislation (10 hrs) <i class="fa-solid fa-chevron-down"></i></div>
                             <div class="syllabus-content">
                                 <ul>
-                                    <li>• 5.1 Renewable Resources | 5.2 Non Renewable Resources</li>
+                                    <li>• Conservation Methods | Policy, Act, Regulations | IEE, EIA, SIA</li>
                                 </ul>
                             </div>
                         </div>
 
-                        <div class="syllabus-group">
-                            <div class="syllabus-title" onclick="toggleSyllabus(this)">6. Biodiversity (10 hrs) <i class="fa-solid fa-chevron-down"></i></div>
-                            <div class="syllabus-content">
-                                <ul>
-                                    <li>• 6.1 Biodiversity and its Conservation (6.1.1 Introduction, 6.1.2 Value, 6.1.3 Global/National levels, 6.1.4 Conservation)</li>
-                                    <li>• 6.2 Environmental Legislation (6.2.1 Policy, 6.2.2 Act, 6.2.3 Regulations, 6.2.4 IEE, 6.2.5 EIA, 6.2.6 SIA)</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="syllabus-group">
-                            <div class="syllabus-title" onclick="toggleSyllabus(this)">7. Environmental Pollution (5 hrs) <i class="fa-solid fa-chevron-down"></i></div>
-                            <div class="syllabus-content">
-                                <ul>
-                                    <li>• 7.1 Air Pollution | 7.2 Water Pollution | 7.3 Soil Pollution | 7.4 Climate Change</li>
-                                    <li>• 7.5 Solid Waste Management | 7.6 Liquid Waste Management | 7.7 Noise Pollution</li>
-                                </ul>
-                            </div>
+                        <!-- Important Questions Section -->
+                        <div class="imp-questions-box">
+                            <h4><i class="fa-solid fa-star"></i> Important Exam Questions</h4>
+                            <ul>
+                                <li>1. Differentiate between IEE (Initial Environmental Examination) and EIA.</li>
+                                <li>2. Explain sampling techniques used in socio-economic data collection with GIS integration.</li>
+                                <li>3. What are the major impacts of climate change on natural resources in Nepal?</li>
+                            </ul>
                         </div>
 
                         <!-- MCQs -->
                         <div class="section-header"><i class="fa-solid fa-circle-question"></i> Practice Questions (MCQ)</div>
                         <div class="quiz-container">
                             <div class="question-box">
-                                <div class="question-text">Q1. Which of the following defines species found exclusively in a specific geographical location?</div>
+                                <div class="question-text">Q1. Which of the following defines species found exclusively in a specific location?</div>
                                 <div class="options-grid">
                                     <button class="option-btn" onclick="checkAnswer(this, false)">A) Invasive species</button>
                                     <button class="option-btn" onclick="checkAnswer(this, true)">B) Endemic species</button>
                                     <button class="option-btn" onclick="checkAnswer(this, false)">C) Exotic species</button>
                                     <button class="option-btn" onclick="checkAnswer(this, false)">D) Extinct species</button>
-                                </div>
-                            </div>
-                            <div class="question-box">
-                                <div class="question-text">Q2. What is a "Buffer Zone" in environmental conservation?</div>
-                                <div class="options-grid">
-                                    <button class="option-btn" onclick="checkAnswer(this, false)">A) Industrial dumping area</button>
-                                    <button class="option-btn" onclick="checkAnswer(this, true)">B) Transitional area around protected area</button>
-                                    <button class="option-btn" onclick="checkAnswer(this, false)">C) Restricted permanent zone</button>
-                                    <button class="option-btn" onclick="checkAnswer(this, false)">D) Urban commercial center</button>
                                 </div>
                             </div>
                         </div>
@@ -470,51 +495,38 @@
                     <div id="sem7-sub2" class="subject-card">
                         <h2 class="subject-title"><i class="fa-solid fa-calculator" style="color: #0284c7;"></i> 2. Estimating and Costing</h2>
                         <div class="fun-fact-box">
-                            <i class="fa-solid fa-lightbulb"></i> <strong>Fun Fact & Survey Joke:</strong> Why do estimators never get lost? Because even if they are in the wrong place, they’ve already added a 10% contingency for location errors! 🏗️
+                            <i class="fa-solid fa-lightbulb"></i> <strong>Fun Fact:</strong> Estimators don't get lost; they just add 10% contingency to their journey! 🏗️
                         </div>
 
                         <div class="section-header"><i class="fa-solid fa-list-check"></i> Syllabus Content</div>
-                        
                         <div class="syllabus-group">
-                            <div class="syllabus-title" onclick="toggleSyllabus(this)">1. Introduction & Methods of Estimating <i class="fa-solid fa-chevron-down"></i></div>
+                            <div class="syllabus-title" onclick="toggleSyllabus(this)">Key Units (Rate Analysis & Estimates) <i class="fa-solid fa-chevron-down"></i></div>
                             <div class="syllabus-content">
                                 <ul>
-                                    <li>• System of Units, Payments for items, Abstracting bills of quantities.</li>
-                                    <li>• Subheads of items, taking out quantities.</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="syllabus-group">
-                            <div class="syllabus-title" onclick="toggleSyllabus(this)">2. Detailed Estimates & Rate Analysis <i class="fa-solid fa-chevron-down"></i></div>
-                            <div class="syllabus-content">
-                                <ul>
-                                    <li>• Contingency, Transportation, Overheads.</li>
-                                    <li>• Procedure of Rate Analysis (Buildings, Roads, Culverts, Bridges).</li>
+                                    <li>• Units of Payments, Abstracting Bills of Quantities.</li>
+                                    <li>• Rate Analysis for Buildings, Roads, Culverts, Bridges.</li>
                                     <li>• Valuation of Tree crops, Standing crops, District rates.</li>
                                 </ul>
                             </div>
                         </div>
 
-                        <div class="syllabus-group">
-                            <div class="syllabus-title" onclick="toggleSyllabus(this)">3. Project Estimations & Disaster Resilience Cost <i class="fa-solid fa-chevron-down"></i></div>
-                            <div class="syllabus-content">
-                                <ul>
-                                    <li>• Residential Buildings, Roadways, Culverts, Septic Tanks.</li>
-                                    <li>• Detail valuation of land (Kisim assignment, road access, soil quality).</li>
-                                </ul>
-                            </div>
+                        <!-- Important Questions -->
+                        <div class="imp-questions-box">
+                            <h4><i class="fa-solid fa-star"></i> Important Exam Questions</h4>
+                            <ul>
+                                <li>1. Prepare a detailed estimate for a standard septic tank or single-story building.</li>
+                                <li>2. Explain the step-by-step procedure for Rate Analysis of earthwork in road excavation.</li>
+                            </ul>
                         </div>
 
                         <div class="section-header"><i class="fa-solid fa-circle-question"></i> Practice Questions (MCQ)</div>
                         <div class="quiz-container">
                             <div class="question-box">
-                                <div class="question-text">Q1. What is an allowance made for unforeseen expenses during construction called?</div>
+                                <div class="question-text">Q1. What is an allowance made for unforeseen expenses called?</div>
                                 <div class="options-grid">
-                                    <button class="option-btn" onclick="checkAnswer(this, false)">A) Overhead Cost</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">A) Overhead</button>
                                     <button class="option-btn" onclick="checkAnswer(this, true)">B) Contingency</button>
                                     <button class="option-btn" onclick="checkAnswer(this, false)">C) Prime Cost</button>
-                                    <button class="option-btn" onclick="checkAnswer(this, false)">D) Salvage Value</button>
                                 </div>
                             </div>
                         </div>
@@ -524,58 +536,43 @@
                     <div id="sem7-sub3" class="subject-card">
                         <h2 class="subject-title"><i class="fa-solid fa-house-flag" style="color: #f59e0b;"></i> 3. Land and Valuation</h2>
                         <div class="fun-fact-box">
-                            <i class="fa-solid fa-lightbulb"></i> <strong>Fun Fact:</strong> Location, Location, Location! You can change the building, but you can't change the coordinates—unless you're bad at Datum transformations! 🗺️
+                            <i class="fa-solid fa-lightbulb"></i> <strong>Fun Fact:</strong> You can change the building design, but you can't change the coordinates! 🗺️
                         </div>
 
                         <div class="section-header"><i class="fa-solid fa-list-check"></i> Syllabus Content</div>
                         <div class="syllabus-group">
-                            <div class="syllabus-title" onclick="toggleSyllabus(this)">Key Syllabus Topics <i class="fa-solid fa-chevron-down"></i></div>
+                            <div class="syllabus-title" onclick="toggleSyllabus(this)">Valuation Methods & GIS <i class="fa-solid fa-chevron-down"></i></div>
                             <div class="syllabus-content">
                                 <ul>
-                                    <li>• Real Estate Valuation, Compensation & Eminent Domain.</li>
-                                    <li>• GIS in Land Valuation, MCDA & AHP Method.</li>
-                                    <li>• Valuation procedures (Comparative price, Real value procedure, Depreciation).</li>
+                                    <li>• Eminent Domain & Land Compensation.</li>
+                                    <li>• GIS in Land Valuation, AHP & MCDA Methods.</li>
                                 </ul>
                             </div>
                         </div>
 
-                        <div class="section-header"><i class="fa-solid fa-circle-question"></i> Practice Questions (MCQ)</div>
-                        <div class="quiz-container">
-                            <div class="question-box">
-                                <div class="question-text">Q1. The right of a government to take private property for public use with compensation is known as:</div>
-                                <div class="options-grid">
-                                    <button class="option-btn" onclick="checkAnswer(this, false)">A) Adverse Possession</button>
-                                    <button class="option-btn" onclick="checkAnswer(this, true)">B) Eminent Domain</button>
-                                    <button class="option-btn" onclick="checkAnswer(this, false)">C) Encumbrance</button>
-                                    <button class="option-btn" onclick="checkAnswer(this, false)">D) Easement</button>
-                                </div>
-                            </div>
+                        <div class="imp-questions-box">
+                            <h4><i class="fa-solid fa-star"></i> Important Exam Questions</h4>
+                            <ul>
+                                <li>1. Explain the Multi-Criteria Decision Analysis (MCDA) using AHP in land evaluation.</li>
+                                <li>2. Describe the concept of Eminent Domain and land acquisition procedures in Nepal.</li>
+                            </ul>
                         </div>
                     </div>
 
                     <!-- Subject 4, 5, 6 Overview Cards -->
                     <div id="sem7-sub4" class="subject-card">
                         <h2 class="subject-title"><i class="fa-solid fa-user-shield" style="color: #6366f1;"></i> 4. Professional Practice and Ethics</h2>
-                        <div class="fun-fact-box">
-                            <i class="fa-solid fa-lightbulb"></i> <strong>Ethics Rule #1:</strong> Never move a boundary marker just because the client gave you hot tea and Samosas! ☕
-                        </div>
-                        <p style="font-size:0.9rem; color:var(--text-muted);">Covers Professional Ethics, Public Procurement Act 2063, Tendering, Contract Documents, and FIG Guidelines.</p>
+                        <p style="font-size:0.88rem; color:var(--text-muted);">Covers Professional Ethics, Public Procurement Act 2063, Tendering, Contract Documents, and FIG Guidelines.</p>
                     </div>
 
                     <div id="sem7-sub5" class="subject-card">
                         <h2 class="subject-title"><i class="fa-solid fa-map-location-dot" style="color: #ec4899;"></i> 5. Field Work-IV</h2>
-                        <div class="fun-fact-box">
-                            <i class="fa-solid fa-lightbulb"></i> <strong>Field Logic:</strong> If RTK loses fix, turn it off and on again. If it still fails, check if you're under a high-voltage tree! 🛰️
-                        </div>
-                        <p style="font-size:0.9rem; color:var(--text-muted);">2-Week Intensive Field Work: Control points establishment, GNSS Data collection, processing, and report defense.</p>
+                        <p style="font-size:0.88rem; color:var(--text-muted);">2-Week Intensive Field Work: Control points establishment, GNSS Data collection, processing, and report defense.</p>
                     </div>
 
                     <div id="sem7-sub6" class="subject-card">
                         <h2 class="subject-title"><i class="fa-solid fa-diagram-project" style="color: #8b5cf6;"></i> 6. Project Management</h2>
-                        <div class="fun-fact-box">
-                            <i class="fa-solid fa-lightbulb"></i> <strong>Project Tip:</strong> CPM and PERT charts are best friends when tracking critical deadlines! ⏱️
-                        </div>
-                        <p style="font-size:0.9rem; color:var(--text-muted);">Covers Feasibility Studies, CPM/PERT Networks, ZOPP Planning, Resource Scheduling, and Procurement.</p>
+                        <p style="font-size:0.88rem; color:var(--text-muted);">Covers Feasibility Studies, CPM/PERT Networks, ZOPP Planning, Resource Scheduling, and Procurement.</p>
                     </div>
 
                 </div>
@@ -587,70 +584,51 @@
                     <div id="sem8-sub1" class="subject-card">
                         <h2 class="subject-title"><i class="fa-solid fa-city" style="color: #0284c7;"></i> 1. Spatial Planning and Development</h2>
                         <div class="fun-fact-box">
-                            <i class="fa-solid fa-lightbulb"></i> <strong>Fun Fact:</strong> Spatial planners don't get lost; they just re-zone their current position as 'unexplored multi-use buffer space'! 🏙️
+                            <i class="fa-solid fa-lightbulb"></i> <strong>Fun Fact:</strong> Spatial planners never get lost; they just re-zone their position! 🏙️
                         </div>
 
                         <div class="section-header"><i class="fa-solid fa-list-check"></i> Syllabus Content</div>
                         <div class="syllabus-group">
-                            <div class="syllabus-title" onclick="toggleSyllabus(this)">Urban/City Planning & Spatial Analysis <i class="fa-solid fa-chevron-down"></i></div>
+                            <div class="syllabus-title" onclick="toggleSyllabus(this)">Urban Concepts & Web GIS <i class="fa-solid fa-chevron-down"></i></div>
                             <div class="syllabus-content">
                                 <ul>
-                                    <li>• Garden City Concept (Ebenezer Howard), Patric Geddes, Le Corbusier.</li>
-                                    <li>• Kriging, IDW, Thiessen Polygons, Spatial Interpolation.</li>
-                                    <li>• Web GIS, Open Source GIS (GeoServer, WMS, WFS, WCS).</li>
-                                    <li>• Global Mapping Project (ISCGM).</li>
+                                    <li>• Garden City Concept (Ebenezer Howard), Patric Geddes.</li>
+                                    <li>• Kriging, IDW, Spatial Interpolation, Web GIS (GeoServer).</li>
                                 </ul>
                             </div>
                         </div>
 
-                        <div class="section-header"><i class="fa-solid fa-circle-question"></i> Practice Questions (MCQ)</div>
-                        <div class="quiz-container">
-                            <div class="question-box">
-                                <div class="question-text">Q1. Who proposed the "Garden City" concept in urban planning?</div>
-                                <div class="options-grid">
-                                    <button class="option-btn" onclick="checkAnswer(this, false)">A) Le Corbusier</button>
-                                    <button class="option-btn" onclick="checkAnswer(this, true)">B) Sir Ebenezer Howard</button>
-                                    <button class="option-btn" onclick="checkAnswer(this, false)">C) Patrick Geddes</button>
-                                    <button class="option-btn" onclick="checkAnswer(this, false)">D) C.A. Doxiadis</button>
-                                </div>
-                            </div>
+                        <div class="imp-questions-box">
+                            <h4><i class="fa-solid fa-star"></i> Important Exam Questions</h4>
+                            <ul>
+                                <li>1. Explain Sir Ebenezer Howard's "Garden City" concept in detail.</li>
+                                <li>2. Compare Spatial Interpolation methods: Kriging vs IDW.</li>
+                            </ul>
                         </div>
                     </div>
 
                     <!-- Subject 2 -->
                     <div id="sem8-sub2" class="subject-card">
                         <h2 class="subject-title"><i class="fa-solid fa-chart-line" style="color: #10b981;"></i> 2. Engineering Economics and Management</h2>
-                        <div class="fun-fact-box">
-                            <i class="fa-solid fa-lightbulb"></i> <strong>Fun Fact:</strong> Continuous compounding at a high MARR makes future value grow exponentially fast! 💸
-                        </div>
-                        <p style="font-size:0.9rem; color:var(--text-muted);">Covers Time Value of Money, MARR, IRR, Cost/Benefit Ratio, Sensitivity Analysis, and Nepalese VAT/Taxation.</p>
+                        <p style="font-size:0.88rem; color:var(--text-muted);">Covers Time Value of Money, MARR, IRR, Cost/Benefit Ratio, Sensitivity Analysis, and Nepalese VAT/Taxation.</p>
                     </div>
 
                     <!-- Subject 3 -->
                     <div id="sem8-sub3" class="subject-card">
                         <h2 class="subject-title"><i class="fa-solid fa-satellite" style="color: #6366f1;"></i> 3. Earth Observation Systems (Elective)</h2>
-                        <div class="fun-fact-box">
-                            <i class="fa-solid fa-lightbulb"></i> <strong>Fun Fact:</strong> Remote Sensing satellites see everything from 700km up, until clouds decide to cover the scene! ☁️
-                        </div>
-                        <p style="font-size:0.9rem; color:var(--text-muted);">Applications in Agriculture, Ocean Observation (El Niño/La Niña), Biodiversity, and Early Warning Systems.</p>
+                        <p style="font-size:0.88rem; color:var(--text-muted);">Applications in Agriculture, Ocean Observation (El Niño/La Niña), Biodiversity, and Early Warning Systems.</p>
                     </div>
 
                     <!-- Subject 4 -->
                     <div id="sem8-sub4" class="subject-card">
                         <h2 class="subject-title"><i class="fa-solid fa-triangle-exclamation" style="color: #ef4444;"></i> 4. Application of GIS for DRM (Elective)</h2>
-                        <div class="fun-fact-box">
-                            <i class="fa-solid fa-lightbulb"></i> <strong>Formula:</strong> Risk = (Hazard × Vulnerability) / Capacity. Boost capacity to lower risk! 📊
-                        </div>
-                        <p style="font-size:0.9rem; color:var(--text-muted);">Disaster Risk Reduction, Multi-Criteria Analysis, BIPAD Portal, and SDI Standards.</p>
+                        <p style="font-size:0.88rem; color:var(--text-muted);">Disaster Risk Reduction, Multi-Criteria Analysis, BIPAD Portal, and SDI Standards.</p>
                     </div>
 
                     <!-- Subject 5 -->
                     <div id="sem8-sub5" class="subject-card">
                         <h2 class="subject-title"><i class="fa-solid fa-building-user" style="color: #f59e0b;"></i> 5. Urban and Regional Planning (Elective)</h2>
-                        <div class="fun-fact-box">
-                            <i class="fa-solid fa-lightbulb"></i> <strong>Fun Fact:</strong> Grid iron, Linear, Radio-centric... Settlement patterns shaped human history! 🏙️
-                        </div>
-                        <p style="font-size:0.9rem; color:var(--text-muted);">Kathmandu Valley Traditional Urban Design, Housing & Building Codes, and IRDP Formulation.</p>
+                        <p style="font-size:0.88rem; color:var(--text-muted);">Kathmandu Valley Traditional Urban Design, Housing & Building Codes, and IRDP Formulation.</p>
                     </div>
 
                 </div>
@@ -664,7 +642,7 @@
         Developed by <strong>Bipin Adhikari</strong>
     </footer>
 
-    <!-- JavaScript for Dynamic Interactivity -->
+    <!-- Script -->
     <script>
         const semesterData = {
             sem7: [
@@ -689,22 +667,38 @@
             menu.innerHTML = "";
             semesterData[semId].forEach(sub => {
                 const li = document.createElement("li");
-                li.innerHTML = `<a href="#${sub.id}">${sub.name}</a>`;
+                li.innerHTML = `<a href="#${sub.id}" onclick="closeMobileNav()">${sub.name}</a>`;
                 menu.appendChild(li);
             });
         }
 
         function switchSemester(semId, btnElement) {
-            // Update active tab button
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             btnElement.classList.add('active');
 
-            // Toggle Panes
             document.querySelectorAll('.semester-pane').forEach(pane => pane.style.display = 'none');
             document.getElementById(semId).style.display = 'block';
 
-            // Repopulate Sidebar Nav
             populateSidebar(semId);
+        }
+
+        function toggleMobileNav() {
+            const sidebar = document.getElementById("sidebar");
+            const icon = document.getElementById("nav-chevron");
+            sidebar.classList.toggle("show");
+            
+            if (sidebar.classList.contains("show")) {
+                icon.className = "fa-solid fa-chevron-up";
+            } else {
+                icon.className = "fa-solid fa-chevron-down";
+            }
+        }
+
+        function closeMobileNav() {
+            if (window.innerWidth <= 850) {
+                document.getElementById("sidebar").classList.remove("show");
+                document.getElementById("nav-chevron").className = "fa-solid fa-chevron-down";
+            }
         }
 
         function toggleSyllabus(headerElement) {
@@ -734,7 +728,6 @@
             }
         }
 
-        // Initialize default view
         window.onload = function() {
             populateSidebar('sem7');
         };
