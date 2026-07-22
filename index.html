@@ -3,733 +3,727 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geomatics Engineering Study Portal</title>
-    <!-- Google Fonts & FontAwesome Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>Geomatics Engineering Academic Dashboard</title>
     <style>
         :root {
-            --primary: #0f172a;
+            --primary: #1e3a8a;
             --secondary: #0284c7;
-            --accent: #0d9488;
-            --bg-body: #f8fafc;
-            --bg-card: #ffffff;
-            --text-main: #334155;
-            --text-muted: #64748b;
+            --accent: #f59e0b;
+            --bg-light: #f8fafc;
+            --text-dark: #0f172a;
+            --card-bg: #ffffff;
             --border: #e2e8f0;
-            --success: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --radius: 12px;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            line-height: 1.6;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.5;
+            padding: 20px;
         }
 
-        /* Top Header */
-        header {
-            background: linear-gradient(135deg, var(--primary), #1e293b);
-            color: #ffffff;
-            padding: 2rem 1rem;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
         }
 
-        header h1 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 0.4rem;
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
         }
 
-        header p {
-            color: #94a3b8;
-            font-size: 0.88rem;
-            font-style: italic;
+        .header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
         }
 
-        /* Main Container */
-        .container {
-            max-width: 1200px;
-            margin: 1.5rem auto;
-            padding: 0 1rem;
+        /* Fun Fact Styling (Resized smaller) */
+        .fun-fact-card {
+            background: #fffbeeb0;
+            border-left: 4px solid var(--accent);
+            padding: 8px 12px;
+            margin-top: 12px;
+            border-radius: 4px;
+            font-size: 0.82rem;
+            color: #78350f;
+            line-height: 1.3;
         }
 
-        /* Semester Tabs */
-        .semester-tabs {
+        /* Navigation Controls */
+        .controls-card {
+            background: var(--card-bg);
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
             display: flex;
-            justify-content: center;
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        select {
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            font-size: 0.95rem;
+            background-color: white;
+            outline: none;
+            cursor: pointer;
+        }
+
+        select:focus {
+            border-color: var(--secondary);
+        }
+
+        /* Sub-Navigation Tabs */
+        .tab-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 5px;
         }
 
         .tab-btn {
-            background: var(--bg-card);
-            border: 2px solid var(--border);
-            padding: 0.6rem 1.5rem;
+            padding: 8px 16px;
+            border: none;
+            background: none;
             font-size: 0.95rem;
             font-weight: 600;
-            border-radius: var(--radius);
+            color: #64748b;
             cursor: pointer;
-            transition: all 0.2s ease;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            border-radius: 6px;
+            transition: all 0.2s;
         }
 
         .tab-btn.active {
-            background-color: var(--secondary);
-            color: #ffffff;
-            border-color: var(--secondary);
-            box-shadow: var(--shadow);
-        }
-
-        /* Grid Layout */
-        .content-layout {
-            display: grid;
-            grid-template-columns: 260px 1fr;
-            gap: 1.5rem;
-            align-items: start;
-        }
-
-        /* Sidebar Desktop View */
-        .sidebar {
-            background: var(--bg-card);
-            padding: 1.25rem;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            position: sticky;
-            top: 1rem;
-            box-shadow: var(--shadow);
-            z-index: 10;
-        }
-
-        .sidebar h3 {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-        }
-
-        .sidebar ul {
-            list-style: none;
-        }
-
-        .sidebar li {
-            margin-bottom: 0.4rem;
-        }
-
-        .sidebar a {
-            text-decoration: none;
-            color: var(--text-main);
-            font-size: 0.88rem;
-            font-weight: 500;
-            display: block;
-            padding: 0.5rem 0.75rem;
-            border-radius: 8px;
-            transition: background 0.2s;
-        }
-
-        .sidebar a:hover {
-            background-color: #f1f5f9;
-            color: var(--secondary);
-        }
-
-        /* Mobile Responsive Navigation (Floating Dropdown Modal) */
-        .mobile-nav-toggle {
-            display: none;
-            width: 100%;
-            background: var(--primary);
+            background: var(--secondary);
             color: white;
-            padding: 0.75rem 1rem;
-            border-radius: var(--radius);
-            font-weight: 600;
-            text-align: left;
-            border: none;
-            margin-bottom: 1rem;
-            cursor: pointer;
-            justify-content: space-between;
-            align-items: center;
         }
 
-        @media (max-width: 850px) {
-            .content-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .mobile-nav-toggle {
-                display: flex;
-            }
-
-            .sidebar {
-                display: none; /* Mobile ma click गर्दा मात्र खुल्छ */
-                position: relative;
-                top: 0;
-                margin-bottom: 1.5rem;
-            }
-
-            .sidebar.show {
-                display: block;
-            }
-        }
-
-        /* Subject Cards */
-        .subject-card {
-            background: var(--bg-card);
+        /* Content Display Area */
+        .content-area {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 10px;
             border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow);
-            scroll-margin-top: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
-        .subject-title {
-            font-size: 1.25rem;
+        .subject-header {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .subject-header h2 {
             color: var(--primary);
-            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .subject-meta {
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            border-bottom: 2px solid #f1f5f9;
-            padding-bottom: 0.6rem;
+            gap: 15px;
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 5px;
         }
 
-        .fun-fact-box {
-            background: #f0f9ff;
-            border-left: 4px solid var(--secondary);
-            padding: 0.8rem 1rem;
-            border-radius: 0 var(--radius) var(--radius) 0;
-            margin-bottom: 1.2rem;
-            font-size: 0.88rem;
-            color: #0369a1;
-        }
-
-        /* Section Headers */
-        .section-header {
-            font-weight: 600;
-            font-size: 1rem;
-            margin: 1.25rem 0 0.6rem 0;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Accordion Syllabus */
-        .syllabus-group {
+        /* Syllabus Accordion / Chapter List */
+        .chapter-card {
             border: 1px solid var(--border);
-            border-radius: 8px;
-            margin-bottom: 0.6rem;
+            border-radius: 6px;
+            margin-bottom: 12px;
             overflow: hidden;
         }
 
-        .syllabus-title {
-            background: #f8fafc;
-            padding: 0.75rem 1rem;
+        .chapter-header {
+            background: #f1f5f9;
+            padding: 12px 15px;
             font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
+            font-size: 1rem;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            color: #1e293b;
         }
 
-        .syllabus-content {
-            padding: 0.8rem 1rem;
-            display: none;
-            background: #ffffff;
-            font-size: 0.88rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .syllabus-content ul {
-            list-style: none;
-        }
-
-        .syllabus-content li {
-            margin-bottom: 0.3rem;
-        }
-
-        /* Important Questions Section */
-        .imp-questions-box {
-            background: #fffbe3;
-            border: 1px solid #fde047;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-        }
-
-        .imp-questions-box h4 {
-            color: #854d0e;
+        .chapter-body {
+            padding: 15px;
             font-size: 0.92rem;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
+            color: #334155;
+            background: white;
         }
 
-        .imp-questions-box ul {
-            padding-left: 1.2rem;
-            font-size: 0.88rem;
-            color: #713f12;
+        .chapter-body ul {
+            padding-left: 20px;
         }
 
-        .imp-questions-box li {
-            margin-bottom: 0.3rem;
+        .chapter-body li {
+            margin-bottom: 5px;
         }
 
-        /* Quiz Box */
-        .quiz-container {
-            margin-top: 1rem;
-            background: #fafafa;
-            border: 1px dashed var(--border);
-            padding: 1rem;
-            border-radius: 8px;
-        }
-
-        .question-box {
-            margin-bottom: 1rem;
-            background: #ffffff;
-            padding: 0.8rem;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-        }
-
-        .question-text {
-            font-weight: 600;
+        /* Data Tables for Marks & Scheme */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
             font-size: 0.9rem;
-            margin-bottom: 0.6rem;
         }
 
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-        }
-
-        @media (max-width: 600px) {
-            .options-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .option-btn {
-            background: #ffffff;
+        th, td {
             border: 1px solid var(--border);
-            padding: 0.5rem 0.75rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            cursor: pointer;
+            padding: 10px;
             text-align: left;
         }
 
-        .option-btn.correct {
-            background: #dcfce7 !important;
-            border-color: var(--success) !important;
-            color: #15803d;
+        th {
+            background-color: #f1f5f9;
+            color: #334155;
             font-weight: 600;
         }
 
-        .option-btn.incorrect {
-            background: #fee2e2 !important;
-            border-color: var(--danger) !important;
-            color: #b91c1c;
+        tr:nth-child(even) {
+            background-color: #f8fafc;
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 1.5rem;
-            background: var(--primary);
-            color: #94a3b8;
-            font-size: 0.88rem;
-            margin-top: 3rem;
+        /* Questions Section */
+        .q-section {
+            margin-bottom: 20px;
         }
 
-        footer strong {
-            color: #ffffff;
+        .q-section h4 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 4px;
+        }
+
+        .q-list {
+            list-style-type: decimal;
+            padding-left: 20px;
+        }
+
+        .q-list li {
+            margin-bottom: 8px;
+            font-size: 0.92rem;
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header>
-        <h1>🎓 Geomatics Engineering Portal</h1>
-        <p>“Surveyors don't make mistakes; they just create new benchmarks!” 📐📍</p>
-    </header>
-
-    <div class="container">
+    <div class="header">
+        <h1>Geomatics Engineering Academic Portal</h1>
+        <p>Complete Syllabus, Chapter-wise Marks Distribution & Model Questions (Semesters VII & VIII)</p>
         
-        <!-- Semester Switcher -->
-        <div class="semester-tabs">
-            <button class="tab-btn active" onclick="switchSemester('sem7', this)">
-                <i class="fa-solid fa-book-bookmark"></i> Semester VII
-            </button>
-            <button class="tab-btn" onclick="switchSemester('sem8', this)">
-                <i class="fa-solid fa-graduation-cap"></i> Semester VIII
-            </button>
-        </div>
-
-        <!-- Mobile Navigation Toggle Button -->
-        <button class="mobile-nav-toggle" onclick="toggleMobileNav()">
-            <span><i class="fa-solid fa-bars"></i> Quick Navigation</span>
-            <i class="fa-solid fa-chevron-down" id="nav-chevron"></i>
-        </button>
-
-        <!-- Content Layout -->
-        <div class="content-layout">
-            
-            <!-- Sidebar -->
-            <aside class="sidebar" id="sidebar">
-                <h3>Quick Navigation</h3>
-                <ul id="sidebar-menu">
-                    <!-- Populated dynamically -->
-                </ul>
-            </aside>
-
-            <!-- Main Content Area -->
-            <main id="main-content">
-
-                <!-- SEMESTER VII CONTENT -->
-                <div id="sem7" class="semester-pane">
-                    
-                    <!-- Subject 1 -->
-                    <div id="sem7-sub1" class="subject-card">
-                        <h2 class="subject-title"><i class="fa-solid fa-leaf" style="color: #10b981;"></i> 1. Environmental & Socio-Economic Survey</h2>
-                        <div class="fun-fact-box">
-                            <i class="fa-solid fa-lightbulb"></i> <strong>Fun Fact & Survey Joke:</strong> Social surveys show that 4 out of 3 people struggle with sample sizes! Always double-check your N value! 😉
-                        </div>
-
-                        <div class="section-header"><i class="fa-solid fa-list-check"></i> Syllabus Content</div>
-                        
-                        <div class="syllabus-group">
-                            <div class="syllabus-title" onclick="toggleSyllabus(this)">1. Introduction to Socio-economic Survey (8 hrs) <i class="fa-solid fa-chevron-down"></i></div>
-                            <div class="syllabus-content">
-                                <ul>
-                                    <li>• 1.1 History | 1.2 Geography | 1.3 Climate | 1.4 Soil | 1.5 Topography</li>
-                                    <li>• 1.6 Population | 1.7 Culture | 1.8 Infrastructures | 1.9 Agriculture</li>
-                                    <li>• 1.10 Industries | 1.11 Natural Resources | 1.12 Tourism | 1.13 Poverty</li>
-                                    <li>• 1.14 Gender equity | 1.15 Distribution of natural Resources | 1.16 Employment</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="syllabus-group">
-                            <div class="syllabus-title" onclick="toggleSyllabus(this)">2. Sample of Data (7 hrs) <i class="fa-solid fa-chevron-down"></i></div>
-                            <div class="syllabus-content">
-                                <ul>
-                                    <li>• 2.1 Distribution | 2.2 Sample size | 2.3 Method of collection | 2.4 Sample analysis | 2.5 Legislation</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="syllabus-group">
-                            <div class="syllabus-title" onclick="toggleSyllabus(this)">3. Data Collection & Analysis (5 hrs) <i class="fa-solid fa-chevron-down"></i></div>
-                            <div class="syllabus-content">
-                                <ul>
-                                    <li>• 3.1 Data compilation | 3.2 Analysis | 3.3 Cost Benefit Analysis | 3.4 Spatial data | 3.5 Use in GIS</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="syllabus-group">
-                            <div class="syllabus-title" onclick="toggleSyllabus(this)">4. Environmental Study & Natural Resources (10 hrs) <i class="fa-solid fa-chevron-down"></i></div>
-                            <div class="syllabus-content">
-                                <ul>
-                                    <li>• Scope & Public Awareness | Renewable & Non Renewable Resources</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="syllabus-group">
-                            <div class="syllabus-title" onclick="toggleSyllabus(this)">5. Biodiversity & Legislation (10 hrs) <i class="fa-solid fa-chevron-down"></i></div>
-                            <div class="syllabus-content">
-                                <ul>
-                                    <li>• Conservation Methods | Policy, Act, Regulations | IEE, EIA, SIA</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Important Questions Section -->
-                        <div class="imp-questions-box">
-                            <h4><i class="fa-solid fa-star"></i> Important Exam Questions</h4>
-                            <ul>
-                                <li>1. Differentiate between IEE (Initial Environmental Examination) and EIA.</li>
-                                <li>2. Explain sampling techniques used in socio-economic data collection with GIS integration.</li>
-                                <li>3. What are the major impacts of climate change on natural resources in Nepal?</li>
-                            </ul>
-                        </div>
-
-                        <!-- MCQs -->
-                        <div class="section-header"><i class="fa-solid fa-circle-question"></i> Practice Questions (MCQ)</div>
-                        <div class="quiz-container">
-                            <div class="question-box">
-                                <div class="question-text">Q1. Which of the following defines species found exclusively in a specific location?</div>
-                                <div class="options-grid">
-                                    <button class="option-btn" onclick="checkAnswer(this, false)">A) Invasive species</button>
-                                    <button class="option-btn" onclick="checkAnswer(this, true)">B) Endemic species</button>
-                                    <button class="option-btn" onclick="checkAnswer(this, false)">C) Exotic species</button>
-                                    <button class="option-btn" onclick="checkAnswer(this, false)">D) Extinct species</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Subject 2 -->
-                    <div id="sem7-sub2" class="subject-card">
-                        <h2 class="subject-title"><i class="fa-solid fa-calculator" style="color: #0284c7;"></i> 2. Estimating and Costing</h2>
-                        <div class="fun-fact-box">
-                            <i class="fa-solid fa-lightbulb"></i> <strong>Fun Fact:</strong> Estimators don't get lost; they just add 10% contingency to their journey! 🏗️
-                        </div>
-
-                        <div class="section-header"><i class="fa-solid fa-list-check"></i> Syllabus Content</div>
-                        <div class="syllabus-group">
-                            <div class="syllabus-title" onclick="toggleSyllabus(this)">Key Units (Rate Analysis & Estimates) <i class="fa-solid fa-chevron-down"></i></div>
-                            <div class="syllabus-content">
-                                <ul>
-                                    <li>• Units of Payments, Abstracting Bills of Quantities.</li>
-                                    <li>• Rate Analysis for Buildings, Roads, Culverts, Bridges.</li>
-                                    <li>• Valuation of Tree crops, Standing crops, District rates.</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Important Questions -->
-                        <div class="imp-questions-box">
-                            <h4><i class="fa-solid fa-star"></i> Important Exam Questions</h4>
-                            <ul>
-                                <li>1. Prepare a detailed estimate for a standard septic tank or single-story building.</li>
-                                <li>2. Explain the step-by-step procedure for Rate Analysis of earthwork in road excavation.</li>
-                            </ul>
-                        </div>
-
-                        <div class="section-header"><i class="fa-solid fa-circle-question"></i> Practice Questions (MCQ)</div>
-                        <div class="quiz-container">
-                            <div class="question-box">
-                                <div class="question-text">Q1. What is an allowance made for unforeseen expenses called?</div>
-                                <div class="options-grid">
-                                    <button class="option-btn" onclick="checkAnswer(this, false)">A) Overhead</button>
-                                    <button class="option-btn" onclick="checkAnswer(this, true)">B) Contingency</button>
-                                    <button class="option-btn" onclick="checkAnswer(this, false)">C) Prime Cost</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Subject 3 -->
-                    <div id="sem7-sub3" class="subject-card">
-                        <h2 class="subject-title"><i class="fa-solid fa-house-flag" style="color: #f59e0b;"></i> 3. Land and Valuation</h2>
-                        <div class="fun-fact-box">
-                            <i class="fa-solid fa-lightbulb"></i> <strong>Fun Fact:</strong> You can change the building design, but you can't change the coordinates! 🗺️
-                        </div>
-
-                        <div class="section-header"><i class="fa-solid fa-list-check"></i> Syllabus Content</div>
-                        <div class="syllabus-group">
-                            <div class="syllabus-title" onclick="toggleSyllabus(this)">Valuation Methods & GIS <i class="fa-solid fa-chevron-down"></i></div>
-                            <div class="syllabus-content">
-                                <ul>
-                                    <li>• Eminent Domain & Land Compensation.</li>
-                                    <li>• GIS in Land Valuation, AHP & MCDA Methods.</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="imp-questions-box">
-                            <h4><i class="fa-solid fa-star"></i> Important Exam Questions</h4>
-                            <ul>
-                                <li>1. Explain the Multi-Criteria Decision Analysis (MCDA) using AHP in land evaluation.</li>
-                                <li>2. Describe the concept of Eminent Domain and land acquisition procedures in Nepal.</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Subject 4, 5, 6 Overview Cards -->
-                    <div id="sem7-sub4" class="subject-card">
-                        <h2 class="subject-title"><i class="fa-solid fa-user-shield" style="color: #6366f1;"></i> 4. Professional Practice and Ethics</h2>
-                        <p style="font-size:0.88rem; color:var(--text-muted);">Covers Professional Ethics, Public Procurement Act 2063, Tendering, Contract Documents, and FIG Guidelines.</p>
-                    </div>
-
-                    <div id="sem7-sub5" class="subject-card">
-                        <h2 class="subject-title"><i class="fa-solid fa-map-location-dot" style="color: #ec4899;"></i> 5. Field Work-IV</h2>
-                        <p style="font-size:0.88rem; color:var(--text-muted);">2-Week Intensive Field Work: Control points establishment, GNSS Data collection, processing, and report defense.</p>
-                    </div>
-
-                    <div id="sem7-sub6" class="subject-card">
-                        <h2 class="subject-title"><i class="fa-solid fa-diagram-project" style="color: #8b5cf6;"></i> 6. Project Management</h2>
-                        <p style="font-size:0.88rem; color:var(--text-muted);">Covers Feasibility Studies, CPM/PERT Networks, ZOPP Planning, Resource Scheduling, and Procurement.</p>
-                    </div>
-
-                </div>
-
-                <!-- SEMESTER VIII CONTENT -->
-                <div id="sem8" class="semester-pane" style="display: none;">
-                    
-                    <!-- Subject 1 -->
-                    <div id="sem8-sub1" class="subject-card">
-                        <h2 class="subject-title"><i class="fa-solid fa-city" style="color: #0284c7;"></i> 1. Spatial Planning and Development</h2>
-                        <div class="fun-fact-box">
-                            <i class="fa-solid fa-lightbulb"></i> <strong>Fun Fact:</strong> Spatial planners never get lost; they just re-zone their position! 🏙️
-                        </div>
-
-                        <div class="section-header"><i class="fa-solid fa-list-check"></i> Syllabus Content</div>
-                        <div class="syllabus-group">
-                            <div class="syllabus-title" onclick="toggleSyllabus(this)">Urban Concepts & Web GIS <i class="fa-solid fa-chevron-down"></i></div>
-                            <div class="syllabus-content">
-                                <ul>
-                                    <li>• Garden City Concept (Ebenezer Howard), Patric Geddes.</li>
-                                    <li>• Kriging, IDW, Spatial Interpolation, Web GIS (GeoServer).</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="imp-questions-box">
-                            <h4><i class="fa-solid fa-star"></i> Important Exam Questions</h4>
-                            <ul>
-                                <li>1. Explain Sir Ebenezer Howard's "Garden City" concept in detail.</li>
-                                <li>2. Compare Spatial Interpolation methods: Kriging vs IDW.</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Subject 2 -->
-                    <div id="sem8-sub2" class="subject-card">
-                        <h2 class="subject-title"><i class="fa-solid fa-chart-line" style="color: #10b981;"></i> 2. Engineering Economics and Management</h2>
-                        <p style="font-size:0.88rem; color:var(--text-muted);">Covers Time Value of Money, MARR, IRR, Cost/Benefit Ratio, Sensitivity Analysis, and Nepalese VAT/Taxation.</p>
-                    </div>
-
-                    <!-- Subject 3 -->
-                    <div id="sem8-sub3" class="subject-card">
-                        <h2 class="subject-title"><i class="fa-solid fa-satellite" style="color: #6366f1;"></i> 3. Earth Observation Systems (Elective)</h2>
-                        <p style="font-size:0.88rem; color:var(--text-muted);">Applications in Agriculture, Ocean Observation (El Niño/La Niña), Biodiversity, and Early Warning Systems.</p>
-                    </div>
-
-                    <!-- Subject 4 -->
-                    <div id="sem8-sub4" class="subject-card">
-                        <h2 class="subject-title"><i class="fa-solid fa-triangle-exclamation" style="color: #ef4444;"></i> 4. Application of GIS for DRM (Elective)</h2>
-                        <p style="font-size:0.88rem; color:var(--text-muted);">Disaster Risk Reduction, Multi-Criteria Analysis, BIPAD Portal, and SDI Standards.</p>
-                    </div>
-
-                    <!-- Subject 5 -->
-                    <div id="sem8-sub5" class="subject-card">
-                        <h2 class="subject-title"><i class="fa-solid fa-building-user" style="color: #f59e0b;"></i> 5. Urban and Regional Planning (Elective)</h2>
-                        <p style="font-size:0.88rem; color:var(--text-muted);">Kathmandu Valley Traditional Urban Design, Housing & Building Codes, and IRDP Formulation.</p>
-                    </div>
-
-                </div>
-
-            </main>
+        <div class="fun-fact-card">
+            <strong>💡 Did You Know?</strong> Geomatics Engineering combines spatial data analysis, satellite geodesy, and GIS for sustainable development and urban planning.
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        Developed by <strong>Bipin Adhikari</strong>
-    </footer>
+    <!-- Main Navigation Controls -->
+    <div class="controls-card">
+        <div class="control-group">
+            <label for="semSelect">Select Semester:</label>
+            <select id="semSelect" onchange="filterSubjects()">
+                <option value="sem7">Semester VII</option>
+                <option value="sem8">Semester VIII</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label for="subjectSelect">Select Subject:</label>
+            <select id="subjectSelect" onchange="renderSubjectData()">
+                <!-- Populated dynamically via JavaScript -->
+            </select>
+        </div>
+    </div>
 
-    <!-- Script -->
+    <!-- Sub Navigation Tabs -->
+    <div class="tab-container">
+        <button class="tab-btn active" onclick="switchTab('syllabusTab', this)">📖 Full Syllabus & Content</button>
+        <button class="tab-btn" onclick="switchTab('marksTab', this)">📊 Chapter-wise Marks Distribution</button>
+        <button class="tab-btn" onclick="switchTab('questionsTab', this)">❓ Important / Model Questions</button>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="content-area">
+        <div class="subject-header">
+            <h2 id="displaySubjectTitle">Subject Title</h2>
+            <div class="subject-meta" id="displaySubjectMeta">
+                <!-- Semester & Hours info -->
+            </div>
+        </div>
+
+        <!-- Tab 1: Syllabus Content -->
+        <div id="syllabusTab" class="tab-content">
+            <div id="syllabusContainer"></div>
+        </div>
+
+        <!-- Tab 2: Marks Scheme -->
+        <div id="marksTab" class="tab-content hidden">
+            <h3>Examination Scheme & Chapter Marks Distribution</h3>
+            <br>
+            <div id="marksContainer"></div>
+        </div>
+
+        <!-- Tab 3: Model Questions -->
+        <div id="questionsTab" class="tab-content hidden">
+            <h3>Model Questions & Practice Sets</h3>
+            <br>
+            <div id="questionsContainer"></div>
+        </div>
+    </div>
+
     <script>
-        const semesterData = {
+        // MASTER DATABASE CONTAINING ALL SUBJECTS FROM BOTH FILES (SEM 7 & SEM 8)
+        const academicData = {
             sem7: [
-                { id: "sem7-sub1", name: "1. Environmental & Socio-Economic" },
-                { id: "sem7-sub2", name: "2. Estimating & Costing" },
-                { id: "sem7-sub3", name: "3. Land & Valuation" },
-                { id: "sem7-sub4", name: "4. Professional Practice & Ethics" },
-                { id: "sem7-sub5", name: "5. Field Work-IV" },
-                { id: "sem7-sub6", name: "6. Project Management" }
+                {
+                    id: "env_socio",
+                    name: "Environmental and Socio-Economic Survey",
+                    meta: "Semester: VII | Total Marks: 100 | Theory Final: 60 | Internal: 40",
+                    chapters: [
+                        { name: "1. Introduction to Socio-economic Survey", hours: "8 hrs", content: "History, Geography, Climate, Soil, Topography, Population, Culture, Infrastructures, Agriculture, Industries, Natural Resources, Tourism, Poverty, Gender equity, Distribution of natural Resources, Employment" },
+                        { name: "2. Sample of Data", hours: "7 hrs", content: "Distribution, Sample size, Method of collection, Sample analysis, Legislation" },
+                        { name: "3. Data Collection and Analysis", hours: "5 hrs", content: "Data compilation, Data Analysis, Cost Benefit Analysis, Presentation on spatial data, Use of Socio-economic survey and GIS" },
+                        { name: "4. Introduction to Environmental Study", hours: "5 hrs", content: "Definition, Scope, Importance, Need for Public Awareness" },
+                        { name: "5. Natural Resources", hours: "5 hrs", content: "Renewable Resources, Non Renewable Resources" },
+                        { name: "6. Biodiversity & Environmental Legislation", hours: "10 hrs", content: "Biodiversity and Conservation (Value, Global/National levels), Environmental Legislation (National Policy, EPA, EPR, IEE, EIA, SIA)" },
+                        { name: "7. Environmental Pollution", hours: "5 hrs", content: "Air, Water, Soil, Climate Change, Solid/Liquid Waste Management, Noise Pollution. Practical: Site visits." }
+                    ],
+                    marks: [
+                        { ch: "1", vsQ: "1 (2m)", sQ: "2 (8m)", lQ: "-", total: "10" },
+                        { ch: "2", vsQ: "-", sQ: "-", lQ: "1 (10m)", total: "10" },
+                        { ch: "3", vsQ: "-", sQ: "2 (8m)", lQ: "-", total: "8" },
+                        { ch: "4", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "5", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "6", vsQ: "-", sQ: "1 (4m)", lQ: "1 (10m)", total: "14" },
+                        { ch: "7", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" }
+                    ],
+                    questions: {
+                        vshort: ["How do you define economy?", "Define Sample Design.", "Define Endemic species.", "Define Buffer zone."],
+                        short: ["A socio-economic survey is regarded as one of the most important sources of statistical data. Justify.", "Define economy? Explain the indicator of good economic growth of the country.", "What is Public Infrastructure? Explain with examples.", "Explain the importance of choosing appropriate sampling.", "What is pollution and pollutants? Discuss the sources of pollution.", "Define land pollution. Discuss the sources and control measures.", "Define Noise. Describe briefly sources and ambient noise levels.", "Define cultural heritage. Describe heritage sites in Nepal."],
+                        long: ["Define sampling method. Describe Sampling Methods / Types, Techniques with Examples.", "Describe briefly method of biodiversity conservation in Nepal and list national parks."]
+                    }
+                },
+                {
+                    id: "est_costing",
+                    name: "Estimating and Costing",
+                    meta: "Semester: VII | Total Marks: 100 | Theory Final: 60 | Internal: 40",
+                    chapters: [
+                        { name: "1. Introduction", hours: "4 hrs", content: "General, System of Units, Units of measurement and payments, Requirement of estimating" },
+                        { name: "2. Method of Estimating", hours: "4 hrs", content: "Measurements of building Land Assets, Subheads, Taking out quantities, Abstracting bills" },
+                        { name: "3. Preparation of Detailed Estimate", hours: "4 hrs", content: "Cost of items, Transportation cost, Overheads, Contingency" },
+                        { name: "4. Types of Estimates", hours: "5 hrs", content: "Approximate, Detailed, Revised, Supplementary, Annual repair, Complete estimates" },
+                        { name: "5. Analysis of Rates", hours: "5 hrs", content: "Purposes, Importance, Factors affecting rate analysis, Procedure for building, sanitary, road, bridge works, District rates" },
+                        { name: "6. Detailed Estimate", hours: "10 hrs", content: "Walls, Single/Two-room building, Earthwork methods, RCC pillar, Slab culvert, Septic tank" },
+                        { name: "7. Detail Valuation of Land", hours: "3 hrs", content: "Area, Soil quality, Road access, Water/Irrigation, Electricity, Kisim comparison" },
+                        { name: "8. Estimation for Projects", hours: "10 hrs", content: "Double storey residential building, Roadway, Agricultural/Residential plot, Valuation report" },
+                        { name: "9. Disaster Resilience Cost", hours: "-", content: "Costing parameters for disaster-resilient infrastructure." }
+                    ],
+                    marks: [
+                        { ch: "1", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "2", vsQ: "-", sQ: "1 (4m)", lQ: "-", total: "4" },
+                        { ch: "3", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "4", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "5", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "6", vsQ: "-", sQ: "1 (4m)", lQ: "1 (10m)", total: "14" },
+                        { ch: "7", vsQ: "-", sQ: "1 (4m)", lQ: "-", total: "4" },
+                        { ch: "8", vsQ: "-", sQ: "1 (4m)", lQ: "1 (10m)", total: "14" }
+                    ],
+                    questions: {
+                        vshort: ["Define estimate.", "What is bill of Quantities?", "What is contingency?", "Explain detailed estimate."],
+                        short: ["What are the essentials of a good estimate?", "Distinguish between Bill of Quantities and Abstract of Estimate?", "Explain overhead cost.", "Distinguish between revised and supplementary estimate.", "What is the purpose of rate analysis?", "How do you carry out valuation of trees?", "Carry out the estimate of a septic tank.", "List out contents of District rates."],
+                        long: ["Estimate the quantities for a single room building from a standard layout.", "Estimate the quantities of excavation and brick cement filling for a foundation OR Describe district rate estimation methods."]
+                    }
+                },
+                {
+                    id: "land_val",
+                    name: "Land and Valuation",
+                    meta: "Semester: VII | Total Marks: 100 | Theory Final: 60 | Internal: 40",
+                    chapters: [
+                        { name: "1. Introduction", hours: "4 hrs", content: "Real estate estimation, Market value, Property taxation, Registration, Bank Loan" },
+                        { name: "2. Detail Estimates of Land (Assignment of Kisim)", hours: "5 hrs", content: "Soil quality, Access roads, Water, Electricity, Scenic view, Land class comparison" },
+                        { name: "3. Compensation", hours: "4 hrs", content: "Eminent domain, Claims of damage, Acquisitions for public use" },
+                        { name: "4. Investment", hours: "5 hrs", content: "Market value, Investment planning, Feasibility, Property management" },
+                        { name: "5. Management", hours: "5 hrs", content: "Management of property systems, Public sector property" },
+                        { name: "6. Land Valuation Practices", hours: "6 hrs", content: "Land valuation in Nepal, India, and England" },
+                        { name: "7. Legal, Institutional & Tech Basis", hours: "10 hrs", content: "Legality, Bankers perspective, GIS in land valuation, MCDA, AHP method" },
+                        { name: "8. Procedures", hours: "3 hrs", content: "Comparative price, Return value, Real value procedures, Depreciation methods" },
+                        { name: "9. Valuation for Different Purposes", hours: "3 hrs", content: "Minimum land valuation for registration, Expropriation, Re-allotment, Taxation" }
+                    ],
+                    marks: [
+                        { ch: "1", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "2", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "3", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "4", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "5", vsQ: "-", sQ: "-", lQ: "1 (10m)", total: "10" },
+                        { ch: "6", vsQ: "-", sQ: "1 (4m)", lQ: "1 (10m)", total: "14" },
+                        { ch: "7", vsQ: "-", sQ: "1 (4m)", lQ: "-", total: "4" },
+                        { ch: "8", vsQ: "-", sQ: "1 (4m)", lQ: "-", total: "4" },
+                        { ch: "9", vsQ: "-", sQ: "1 (4m)", lQ: "-", total: "4" }
+                    ],
+                    questions: {
+                        vshort: ["Define land valuation.", "What is qualitative valuation of land?", "What do you understand by eminent domain?", "What is investment planning in real estate?"],
+                        short: ["What factors affect land valuation? Explain.", "Discuss procedure of property valuation for compensation.", "Why is investment planning important in Nepal?", "Techniques for protecting public property.", "Legal aspects of land valuation in Nepal.", "Explain straight-line depreciation method.", "Calculate minimum land valuation for registration."],
+                        long: ["Discuss Land valuation system in England.", "Explain application of GIS for land valuation OR Describe qualitative (kisim) assignment for urban land."]
+                    }
+                },
+                {
+                    id: "prof_ethics",
+                    name: "Professional Practice and Ethics",
+                    meta: "Semester: VII | Total Marks: 100 | Theory Final: 60 | Internal: 40",
+                    chapters: [
+                        { name: "1. Ethics and Professionalism", hours: "6 hrs", content: "Professional Ethics, Principles, Code of conduct for surveying" },
+                        { name: "2. Perspective on Morals & Ethics", hours: "9 hrs", content: "Codes of ethics guidelines, Relationship to basic science/technology, Patriotism" },
+                        { name: "3. Roles of Professional Associations", hours: "6 hrs", content: "Licensing, Regulation, Guidance for entrants, Safety and public welfare" },
+                        { name: "4. Legal Aspects in Nepal", hours: "9 hrs", content: "Nepalese legal system, Public Procurement Act 2063, PPR 2064, Tendering, Liability" },
+                        { name: "5. International Practices", hours: "4 hrs", content: "Asian countries, USSR/Eastern Europe, Western Europe, North America" },
+                        { name: "6. Planning of Survey Project", hours: "10 hrs", content: "Aerial Photography, Field Control, Photogrammetry, Cartography, GIS reproduction" },
+                        { name: "7. Studies Involving Ethical Issues", hours: "6 hrs", content: "IPR, Copyrights, Privacy & Databases, Environmental protection vs industrialization" }
+                    ],
+                    marks: [
+                        { ch: "1", vsQ: "-", sQ: "2 (8m)", lQ: "-", total: "8" },
+                        { ch: "2", vsQ: "-", sQ: "-", lQ: "1 (10m)", total: "10" },
+                        { ch: "3", vsQ: "-", sQ: "2 (8m)", lQ: "-", total: "8" },
+                        { ch: "4", vsQ: "1 (2m)", sQ: "2 (8m)", lQ: "-", total: "10" },
+                        { ch: "5", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "6", vsQ: "1 (2m)", sQ: "-", lQ: "1 (10m)", total: "12" },
+                        { ch: "7", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" }
+                    ],
+                    questions: {
+                        vshort: ["Define liability and negligence.", "Write short notes on Commission 1 of FIG.", "Review personal privacy in large databases.", "Legal provision on map publication in Nepal."],
+                        short: ["Describe ethical principles of surveying.", "Roles of Professional Associations in survey work.", "Status of foreign firms working in Nepal.", "Risk and benefit considerations in public transportation.", "Methods and stages of approving national/international bids.", "Explain surveying practice in USA/Canada."],
+                        long: ["Define morals and ethics. Describe codes of conduct.", "Describe working procedure of Planning of Aerial Photography OR Public Procurement Act 2063."]
+                    }
+                },
+                {
+                    id: "proj_mgmt",
+                    name: "Project Management",
+                    meta: "Semester: VII | Total Marks: 100 | Theory Final: 60 | Internal: 40",
+                    chapters: [
+                        { name: "1. Introduction", hours: "5 hrs", content: "Survey Project Definition, Cycles, Phases, Objectives, Manager skills" },
+                        { name: "2. Pre Project Work", hours: "5 hrs", content: "Feasibility Study, Project Appraisal, Proposal formulation" },
+                        { name: "3. Survey Project Planning & Scheduling", hours: "10 hrs", content: "Bar chart, CPM/PERT, ZOPP Planning, Resource scheduling, Wiest's Algorithm, HRM" },
+                        { name: "4. Implementation, M&E and Control", hours: "5 hrs", content: "Time/Stress management, Risk analysis, M&E techniques, Work Breakdown Structure (WBS)" },
+                        { name: "5. Capital Planning and Budgeting", hours: "3 hrs", content: "Operating/Capital Budget, Fixed/Flexible budget, Audit" },
+                        { name: "6. Impact Analysis", hours: "3 hrs", content: "Social, Environmental, Economic Impact Analysis, SWOT Analysis" },
+                        { name: "7. Procurement of Services/Equipment", hours: "10 hrs", content: "Procurement types/methods, Tendering, Bidding security, Public Procurement Act 2063" },
+                        { name: "8. Geoethics & Contemporary Issues", hours: "3 hrs", content: "Occupational health & safety, Nepal Engineering Council Act, Agile management" }
+                    ],
+                    marks: [
+                        { ch: "1", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "2", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "3", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "1 (10m)", total: "16" },
+                        { ch: "4", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "5", vsQ: "-", sQ: "1 (4m)", lQ: "-", total: "4" },
+                        { ch: "6", vsQ: "-", sQ: "1 (4m)", lQ: "-", total: "4" },
+                        { ch: "7", vsQ: "-", sQ: "1 (4m)", lQ: "1 (10m)", total: "14" },
+                        { ch: "8", vsQ: "-", sQ: "1 (4m)", lQ: "-", total: "4" }
+                    ],
+                    questions: {
+                        vshort: ["List skills of a survey project manager.", "Contents of a survey project proposal.", "Stages of Human Resource Management.", "Define project monitoring."],
+                        short: ["Explain management competencies.", "Procedure of feasibility study for survey projects.", "Prepare a mind map for HRM.", "Explain Budget revision.", "Explain SWOT Analysis.", "Public procurement process.", "Explain Occupational Health and Safety (OHS)."],
+                        long: ["Draw critical path (CPM) for survey activities and calculate completion time.", "Explain procurement methods for geoinformation projects OR Land resource mapping project management."]
+                    }
+                }
             ],
             sem8: [
-                { id: "sem8-sub1", name: "1. Spatial Planning & Development" },
-                { id: "sem8-sub2", name: "2. Engineering Economics" },
-                { id: "sem8-sub3", name: "3. Earth Observation Systems" },
-                { id: "sem8-sub4", name: "4. GIS for DRM" },
-                { id: "sem8-sub5", name: "5. Urban & Regional Planning" }
+                {
+                    id: "spd",
+                    name: "Spatial Planning and Development",
+                    meta: "Semester: VIII | Total Marks: 100 | Theory Final: 60 | Internal: 40",
+                    chapters: [
+                        { name: "1. Introduction", hours: "4 hrs", content: "Definition & concept of Planning, human settlements, historical/squatter settlements in Nepal" },
+                        { name: "2. Urban/City Planning", hours: "12 hrs", content: "Morphology, Theoretical models (Geddes, Howard, Le Corbusier), Development plans, Land-use zoning, Nepalese practice" },
+                        { name: "3. Rural Planning", hours: "4 hrs", content: "Integrated rural development, urbanization linkages, Growth axes & IRD in Nepal" },
+                        { name: "4. Spatial Analysis Techniques (I & II)", hours: "6 hrs", content: "Interpolation (Trend surface, Thiessen, IDW, Splines), Geostatistics (Kriging, Variogram, Hotspot analysis)" },
+                        { name: "5. Spatial Planning and Land", hours: "6 hrs", content: "Land pooling, Land Information System (LIS), Geocoding and Segmentation" },
+                        { name: "6. Applications of SPD", hours: "5 hrs", content: "Environmental management, Infrastructure, Disaster risk assessment, Decision Support Systems" },
+                        { name: "7. Modern Tools", hours: "5 hrs", content: "Web GIS & Mobile GIS, Open source (Geoserver, WMS, WFS), Real-time GIS" },
+                        { name: "8. Global Map", hours: "3 hrs", content: "Objectives, ISCGM, Global map layers and usage" }
+                    ],
+                    marks: [
+                        { ch: "1", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "2", vsQ: "-", sQ: "1 (4m)", lQ: "1 (10m)", total: "14" },
+                        { ch: "3", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "4", vsQ: "-", sQ: "2 (8m)", lQ: "-", total: "8" },
+                        { ch: "5", vsQ: "-", sQ: "-", lQ: "1 (10m)", total: "10" },
+                        { ch: "6", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "7", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "8", vsQ: "-", sQ: "1 (4m)", lQ: "-", total: "4" }
+                    ],
+                    questions: {
+                        vshort: ["Difference between Geostatistics and Areal analysis?", "Define geocoding and mention one application.", "Role of spatial planning in decision making.", "Reason behind global mapping inception."],
+                        short: ["Explain global and local spatial interpolation techniques.", "Perform hotspot analysis for Kathmandu air pollution using auxiliary data.", "What is LIS and why is it important?", "Define dynamic segmentation in GIS.", "Site suitability analysis for urban parks.", "Short notes on Free & Open Source Software (FOSS).", "Applications of mobile and real-time GIS."],
+                        long: ["Explain mechanism behind local interpolation methods.", "Importance of LIS in rural/urban Nepal, key components, challenges OR Define Geoserver and OGC standards (WMS/WFS)."]
+                    }
+                },
+                {
+                    id: "eem",
+                    name: "Engineering Economics and Management",
+                    meta: "Semester: VIII | Total Marks: 100 | Theory Final: 60 | Internal: 40",
+                    chapters: [
+                        { name: "1. Introduction", hours: "4 hrs", content: "Business terminology, Cash flow, Economic systems, FIG guidelines" },
+                        { name: "2. Cost Classification & Analysis", hours: "4 hrs", content: "Elements of cost, Overhead/Prime cost, Variance analysis, Job & process costing" },
+                        { name: "3. Interest & Time Value of Money", hours: "5 hrs", content: "Simple/Compound interest, Present worth, Nominal/Effective interest, Uniform gradient" },
+                        { name: "4. Basic Methodologies of Engineering Economics", hours: "5 hrs", content: "Present/Annual/Future worth methods, IRR & External Rate of Return, Payback period" },
+                        { name: "5. Cost/Benefit Analysis", hours: "5 hrs", content: "Conventional & Modified B/C ratio, Break-even analysis" },
+                        { name: "6. Investment Decisions", hours: "7 hrs", content: "Comparing alternatives (equal/different life), Capitalized worth, Mutually exclusive projects" },
+                        { name: "7. Risk Analysis", hours: "4 hrs", content: "Uncertainty conditions, Decision tree, Sensitivity analysis" },
+                        { name: "8. Taxation System in Nepal", hours: "4 hrs", content: "Taxation law, Depreciation rates, Capital gains, VAT" },
+                        { name: "9. Demand Analysis & Sales Forecasting", hours: "7 hrs", content: "Demand correlation, Market research, Sales forecasting criteria" }
+                    ],
+                    marks: [
+                        { ch: "1", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "2", vsQ: "-", sQ: "1 (4m)", lQ: "-", total: "4" },
+                        { ch: "3", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "4", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "5", vsQ: "-", sQ: "1 (4m)", lQ: "-", total: "4" },
+                        { ch: "6", vsQ: "-", sQ: "1 (4m)", lQ: "1 (10m)", total: "14" },
+                        { ch: "7", vsQ: "-", sQ: "1 (4m)", lQ: "-", total: "4" },
+                        { ch: "8", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "9", vsQ: "-", sQ: "-", lQ: "1 (10m)", total: "10" }
+                    ],
+                    questions: {
+                        vshort: ["Define engineering economics.", "What is effective vs nominal interest rate?", "Define VAT.", "One advantage of payback period method."],
+                        short: ["Why is engineering economics important for engineers?", "Calculate effective interest rate for 9% nominal compounding quarterly.", "Present worth calculation for monthly withdrawals.", "Explain equipment replacement reasons.", "Differentiate economic vs financial analysis.", "IRR selection among multi-project alternatives."],
+                        long: ["Find Economic Service Life given initial cost, operating cost gradient and declining salvage value.", "Perform Sensitivity Analysis (±30%) on initial cost, revenue, and project life."]
+                    }
+                },
+                {
+                    id: "eos",
+                    name: "Earth Observation Systems (Elective)",
+                    meta: "Semester: VIII | Total Marks: 100 | Theory Final: 60 | Internal: 40",
+                    chapters: [
+                        { name: "1. Earth Observation", hours: "5 hrs", content: "Groups on Earth Observation (GEO), Vision, Mission, Sustainable Development Goals" },
+                        { name: "2. Agriculture & Food Security", hours: "4 hrs", content: "Crop production, Storage, Distribution, Food security challenges" },
+                        { name: "3. Water and Sanitation", hours: "4 hrs", content: "Clean water, Urban drainage, WASH program (UNICEF), EOS role" },
+                        { name: "4. Ocean Observation", hours: "8 hrs", content: "Ocean dynamics, Heat engine, El Nino & La Nina, Climate change" },
+                        { name: "5. Ecosystem & Biodiversity", hours: "6 hrs", content: "Hotspot identification, Human-wildlife conflict, Conservation balancing" },
+                        { name: "6. Energy", hours: "6 hrs", content: "Renewable energy, Hydroelectricity threats, Coal/Forest fires" },
+                        { name: "7. Natural Disaster Management", hours: "8 hrs", content: "Pre/Post disaster RS applications, Tsunami, Flood, Landslides, Early Warning Systems" },
+                        { name: "8. Atmosphere & Health Issues", hours: "6 hrs", content: "CO2 cycle, Carbon estimation, Air quality, Respiratory health, Infectious diseases" }
+                    ],
+                    marks: [
+                        { ch: "1", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "2", vsQ: "-", sQ: "1 (4m)", lQ: "-", total: "4" },
+                        { ch: "3", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "4", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "5", vsQ: "-", sQ: "1 (4m)", lQ: "1 (10m)*", total: "14" },
+                        { ch: "6", vsQ: "-", sQ: "1 (4m)", lQ: "-", total: "4" },
+                        { ch: "7", vsQ: "-", sQ: "1 (4m)", lQ: "1 (10m)*", total: "14" },
+                        { ch: "8", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" }
+                    ],
+                    questions: {
+                        vshort: ["List groups working on Earth observation.", "Challenges related to clean water sources.", "Define El Nino and La Nina.", "Atmospheric issues affecting respiratory health."],
+                        short: ["Role of Earth observation in sustainable development.", "Using EOS products for food security.", "Managing urban sanitation using satellite RS.", "Why ocean is called the heat engine of Earth?", "Effects of development projects on ecosystems.", "Remote sensing in prediction of natural hazards."],
+                        long: ["EOS technology for agricultural yield prediction OR RS tools for ecosystem monitoring.", "EOS applications in pre-disaster preparedness and post-disaster response."]
+                    }
+                },
+                {
+                    id: "gis_drm",
+                    name: "Application of GIS for Disaster Risk Management (Elective)",
+                    meta: "Semester: VIII | Total Marks: 100 | Theory Final: 60 | Internal: 40",
+                    chapters: [
+                        { name: "1. Understanding DRM", hours: "6 hrs", content: "Concepts: Hazard, Risk, Vulnerability, Resilience, Disaster phases (Pre/Post disaster)" },
+                        { name: "2. Sources of Data for DRM", hours: "8 hrs", content: "Spatial data, DEM, Socio-economic census, Emergency protocols, Humanitarian logistics" },
+                        { name: "3. Identifying Hazard", hours: "7 hrs", content: "Mapping floods, landslides, wildfires using Remote Sensing" },
+                        { name: "4. Vulnerability Assessment", hours: "7 hrs", content: "GIS-based methodologies, Integrating infrastructure and social data" },
+                        { name: "5. Risk Modelling", hours: "7 hrs", content: "Probabilistic/Deterministic risk assessment, Multi-Criteria Analysis (MCA)" },
+                        { name: "6. Visualization of DRM Data", hours: "7 hrs", content: "Static/Web maps, 3D visualization, Time-series animation, Simulation" },
+                        { name: "7. Spatial Data Infrastructure (SDI)", hours: "4 hrs", content: "Metadata, OGC/ISO standards, BIPAD Portal Nepal" },
+                        { name: "8. Trends in DRM", hours: "4 hrs", content: "Participatory mapping, UAVs, Artificial Intelligence and Machine Learning in DRM" }
+                    ],
+                    marks: [
+                        { ch: "1", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "2", vsQ: "-", sQ: "-", lQ: "1 (10m)*", total: "10" },
+                        { ch: "3", vsQ: "-", sQ: "2 (8m)", lQ: "-", total: "8" },
+                        { ch: "4", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "5", vsQ: "-", sQ: "-", lQ: "1 (10m)*", total: "10" },
+                        { ch: "6", vsQ: "-", sQ: "2 (8m)", lQ: "-", total: "8" },
+                        { ch: "7", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "8", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" }
+                    ],
+                    questions: {
+                        vshort: ["Define metadata.", "Purpose of Spatial Data Infrastructure (SDI).", "Two applications of Machine Learning in DRM.", "Define Artificial Intelligence."],
+                        short: ["Difference between hazard, vulnerability, and risk.", "Early warning systems in disaster preparedness.", "Concept of community resilience.", "Spatial analysis in socio-economic vulnerability assessment.", "Static vs dynamic flood visualization techniques.", "Short notes on UAV in DRM & Network Analysis."],
+                        long: ["Integration of spatial data (topographic, demographic) in DRM risk modeling.", "Principles and methodologies of GIS Multi-Criteria Analysis (MCA) for hazard mapping."]
+                    }
+                },
+                {
+                    id: "urp",
+                    name: "Urban and Regional Planning (Elective)",
+                    meta: "Semester: VIII | Total Marks: 100 | Theory Final: 60 | Internal: 40",
+                    chapters: [
+                        { name: "1. Introduction to URP", hours: "3 hrs", content: "Concept of planning, Human settlement growth, Role of surveyors" },
+                        { name: "2. Urban Settlements", hours: "4 hrs", content: "Growth patterns: Rectilinear, Circular, Radio-centric, Linear configurations" },
+                        { name: "3. Traditional Urban Design in Nepal", hours: "3 hrs", content: "Kathmandu, Patan, Bhaktapur morphology, Durbar Squares" },
+                        { name: "4. Modern Practices in URP", hours: "8 hrs", content: "Spatial databases, GIS and RS utility in regional planning" },
+                        { name: "5. Essential Features of URP", hours: "5 hrs", content: "Population studies, Employment patterns (basic/non-basic), Transportation, Utilities" },
+                        { name: "6. Housing", hours: "5 hrs", content: "Private, Low-income housing, Site and services, Building codes" },
+                        { name: "7. Integrated Rural Development (IRDP)", hours: "10 hrs", content: "Evolution of IRDP, Land pooling, Decentralization" },
+                        { name: "8. Legislation & Planning Practice", hours: "7 hrs", content: "Urban Development Act, VDC/Municipal ward planning" }
+                    ],
+                    marks: [
+                        { ch: "1", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "2", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "3", vsQ: "-", sQ: "1 (4m)", lQ: "-", total: "4" },
+                        { ch: "4", vsQ: "-", sQ: "1 (4m)", lQ: "1 (10m)*", total: "14" },
+                        { ch: "5", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "6", vsQ: "1 (2m)", sQ: "1 (4m)", lQ: "-", total: "6" },
+                        { ch: "7", vsQ: "-", sQ: "1 (4m)", lQ: "1 (10m)*", total: "14" },
+                        { ch: "8 & 9", vsQ: "-", sQ: "1 (4m)", lQ: "-", total: "4" }
+                    ],
+                    questions: {
+                        vshort: ["Define theory of planning.", "What do you mean by urbanization?", "Define regional planning.", "What is housing?"],
+                        short: ["Role of surveyors in urban planning.", "Factors promoting human settlements.", "Traditional urban design in Nepal.", "GIS contributions to urban land-use planning.", "Low-income housing and land pooling techniques."],
+                        long: ["Evolution of Integrated Rural Development Program (IRDP).", "Spatial databases and utility of GIS/RS in regional planning OR Legislation on urban development in Nepal."]
+                    }
+                }
             ]
         };
 
-        function populateSidebar(semId) {
-            const menu = document.getElementById("sidebar-menu");
-            menu.innerHTML = "";
-            semesterData[semId].forEach(sub => {
-                const li = document.createElement("li");
-                li.innerHTML = `<a href="#${sub.id}" onclick="closeMobileNav()">${sub.name}</a>`;
-                menu.appendChild(li);
+        // UI NAVIGATION & RENDER FUNCTIONS
+        function filterSubjects() {
+            const sem = document.getElementById('semSelect').value;
+            const subjectSelect = document.getElementById('subjectSelect');
+            subjectSelect.innerHTML = '';
+
+            academicData[sem].forEach(sub => {
+                const opt = document.createElement('option');
+                opt.value = sub.id;
+                opt.innerText = sub.name;
+                subjectSelect.appendChild(opt);
             });
+
+            renderSubjectData();
         }
 
-        function switchSemester(semId, btnElement) {
+        function getCurrentSubject() {
+            const sem = document.getElementById('semSelect').value;
+            const subId = document.getElementById('subjectSelect').value;
+            return academicData[sem].find(s => s.id === subId);
+        }
+
+        function renderSubjectData() {
+            const subject = getCurrentSubject();
+            if(!subject) return;
+
+            // Render Header Meta
+            document.getElementById('displaySubjectTitle').innerText = subject.name;
+            document.getElementById('displaySubjectMeta').innerText = subject.meta;
+
+            // Render 1. Syllabus
+            const sylContainer = document.getElementById('syllabusContainer');
+            sylContainer.innerHTML = '';
+            subject.chapters.forEach(ch => {
+                sylContainer.innerHTML += `
+                    <div class="chapter-card">
+                        <div class="chapter-header">
+                            <span>${ch.name}</span>
+                            <span>${ch.hours}</span>
+                        </div>
+                        <div class="chapter-body">
+                            <p>${ch.content}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Render 2. Marks Distribution
+            const marksContainer = document.getElementById('marksContainer');
+            let tableHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Chapter</th>
+                            <th>Very Short Qs</th>
+                            <th>Short Qs</th>
+                            <th>Long Qs</th>
+                            <th>Total Marks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            subject.marks.forEach(m => {
+                tableHTML += `
+                    <tr>
+                        <td>Ch ${m.ch}</td>
+                        <td>${m.vsQ}</td>
+                        <td>${m.sQ}</td>
+                        <td>${m.lQ}</td>
+                        <td><strong>${m.total}</strong></td>
+                    </tr>
+                `;
+            });
+            tableHTML += `</tbody></table>`;
+            marksContainer.innerHTML = tableHTML;
+
+            // Render 3. Questions
+            const qContainer = document.getElementById('questionsContainer');
+            qContainer.innerHTML = `
+                <div class="q-section">
+                    <h4>Very Short Questions (2 Marks)</h4>
+                    <ol class="q-list">
+                        ${subject.questions.vshort.map(q => `<li>${q}</li>`).join('')}
+                    </ol>
+                </div>
+                <div class="q-section">
+                    <h4>Short Questions (4 Marks)</h4>
+                    <ol class="q-list">
+                        ${subject.questions.short.map(q => `<li>${q}</li>`).join('')}
+                    </ol>
+                </div>
+                <div class="q-section">
+                    <h4>Long Questions (10 Marks)</h4>
+                    <ol class="q-list">
+                        ${subject.questions.long.map(q => `<li>${q}</li>`).join('')}
+                    </ol>
+                </div>
+            `;
+        }
+
+        function switchTab(tabId, btnElement) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.remove('hidden');
             btnElement.classList.add('active');
-
-            document.querySelectorAll('.semester-pane').forEach(pane => pane.style.display = 'none');
-            document.getElementById(semId).style.display = 'block';
-
-            populateSidebar(semId);
         }
 
-        function toggleMobileNav() {
-            const sidebar = document.getElementById("sidebar");
-            const icon = document.getElementById("nav-chevron");
-            sidebar.classList.toggle("show");
-            
-            if (sidebar.classList.contains("show")) {
-                icon.className = "fa-solid fa-chevron-up";
-            } else {
-                icon.className = "fa-solid fa-chevron-down";
-            }
-        }
-
-        function closeMobileNav() {
-            if (window.innerWidth <= 850) {
-                document.getElementById("sidebar").classList.remove("show");
-                document.getElementById("nav-chevron").className = "fa-solid fa-chevron-down";
-            }
-        }
-
-        function toggleSyllabus(headerElement) {
-            const content = headerElement.nextElementSibling;
-            const icon = headerElement.querySelector('i');
-            if (content.style.display === "block") {
-                content.style.display = "none";
-                icon.className = "fa-solid fa-chevron-down";
-            } else {
-                content.style.display = "block";
-                icon.className = "fa-solid fa-chevron-up";
-            }
-        }
-
-        function checkAnswer(btn, isCorrect) {
-            const parentBox = btn.closest('.options-grid');
-            const buttons = parentBox.querySelectorAll('.option-btn');
-            
-            buttons.forEach(b => {
-                b.classList.remove('correct', 'incorrect');
-            });
-
-            if (isCorrect) {
-                btn.classList.add('correct');
-            } else {
-                btn.classList.add('incorrect');
-            }
-        }
-
-        window.onload = function() {
-            populateSidebar('sem7');
+        // Initialize Default View
+        window.onload = () => {
+            filterSubjects();
         };
     </script>
 </body>
